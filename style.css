@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+body {
+  background: linear-gradient(
+    #1354a5 0%,
+    #041832 33.33%,
+    #041832 66.67%,
+    #01080e 100%
+  );
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body::before {
+  /*background-image: url("img/code.png");*/
+  background-repeat: no-repeat;
+  background-position: right;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.container {
+  width: 90vw;
+  height: 70vh;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch; /*flex-end*/
+  border-radius: 1.5rem;
+  border: 1px solid #1875e8;
+  box-shadow: 4px 4px 20px 0px rgba(1, 8, 14, 0.15);
+  background-image: url("img/Ruido.png");
+  background-size: 100% 100%;
+  position: relative;
+  bottom: 0;
+}
+
+.container__contenido {
+  min-width: 15vw;
+  display: inline-block;
+  align-items: center;
+  bottom: 0;
+}
+
+.container__informaciones {
+  flex: 1;
+  padding: 3rem;
+}
+
+.button {
+  border-radius: 0.75rem;
+  background: #1875e8;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.button:hover {
+  background: rgb(72, 145, 235);
+}
+
+.button:active {
+  background: #0c4992;
+}
+
+.button__icon {
+  padding: 0.5rem 0.5rem;
+}
+
+.button__text {
+  padding: 0.5rem 3rem;
+}
+
+.container__boton {
+  border-radius: 1rem;
+  background: #1875e8;
+  padding: 16px 24px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  border: none;
+  margin-top: 2rem;
+}
+
+.container__boton:disabled {
+  background: #898989;
+}
+
+.button__setings {
+  border: none;
+}
+
+.container__texto {
+  margin: 16px 0 16px 0;
+}
+
+.container__texto-azul {
+  color: #1875e8;
+}
+
+.container__input {
+  width: 100%;
+  height: 72px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: none;
+  color: #1875e8;
+  padding: 2rem;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+}
+
+.container__imagen {
+  bottom: 0;
+}
+
+.container__botones {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+h1 {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 72px;
+  padding-bottom: 3rem;
+}
+
+p,
+button {
+  font-family: "Inter", sans-serif;
+}
+
+.texto__parrafo {
+  font-size: 32px;
+  font-weight: 400;
+}
