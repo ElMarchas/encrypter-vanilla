@@ -3,15 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
-    <header></header>
-    <main>
-      <div id="test">hola mundito</div>
+    <header class="header">
+      <div class="title">
+        <div><img src="./assets/logoa.svg" alt="Logo Laura" /></div>
+        <div>Cifrador</div>
+      </div>
+      <div class="settings">
+        <button class="btn btn-primary">Inglés</button>
+        <button class="btn btn-primary">Versión Pro</button>
+      </div>
+    </header>
+    <main class="main">
+      <div id="input-card" class="input-card">
+        <div id="input" class="input">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci vel
+          dolores necessitatibus ab qui quis odio totam facilis unde repellendus
+          laudantium quibusdam eveniet ut eos, quam dicta dolor aliquam
+          architecto.
+        </div>
+        <div>
+          <p>Apenas letras minúsculas e sem acento.</p>
+          <button class="btn">Encriptar</button>
+          <button class="btn">Desencriptar</button>
+        </div>
+      </div>
+      <div id="output-card" class="output-card">
+        <div id="output" class="output">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt,
+          libero totam! Nemo nobis dignissimos magnam exercitationem incidunt
+          dolorem debitis molestias asperiores harum, sunt ea mollitia dolorum
+          eum quis provident alias!
+        </div>
+        <div>
+          <button class="btn">copiar</button>
+        </div>
+      </div>
     </main>
-    <footer></footer>
+    <footer class="footer">pie de pagina</footer>
     <script type="module" src="app.js"></script>
   </body>
 </html>

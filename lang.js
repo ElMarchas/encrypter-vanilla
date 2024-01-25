@@ -1,11 +1,11 @@
 const lang = {
   EN: {
-    title: "title",
+    title: "Encrypter",
     encript: "encryp",
     desencript: "desencript",
   },
   ES: {
-    title: "titulo",
+    title: "Encriptador",
     encript: "encriptar",
     desencript: "desencriptar",
   },
