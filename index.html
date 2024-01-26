@@ -16,40 +16,52 @@
     <header class="header">
       <div class="title">
         <div><img src="./assets/logoa.svg" alt="Logo Laura" /></div>
-        <div>Cifrador</div>
+        <div id="title">Cifrador</div>
       </div>
       <div class="settings">
-        <button class="btn btn-primary">Inglés</button>
-        <button class="btn btn-primary">Versión Pro</button>
+        <button id="btnLang" class="btn btn-primary">English</button>
+        <button id="btnPro" class="btn btn-primary">Versión Pro</button>
       </div>
     </header>
     <main class="main">
-      <div id="input-card" class="input-card">
-        <div id="input" class="input">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci vel
-          dolores necessitatibus ab qui quis odio totam facilis unde repellendus
-          laudantium quibusdam eveniet ut eos, quam dicta dolor aliquam
-          architecto.
+      <div id="buttons-card" class="hcard">
+        <div class="hcard-p">
+          <p id="conditional">🛈Solo minusculas y sin acentos.</p>
         </div>
-        <div>
-          <p>Apenas letras minúsculas e sem acento.</p>
-          <button class="btn">Encriptar</button>
-          <button class="btn">Desencriptar</button>
+        <div class="hcard-btn">
+          <button id="btnEncrypt" class="btn">Cifrar</button>
+          <button id="btnDecrypt" class="btn">Descifrar</button>
+          <button id="btnSwap" class="btn btn-icon">⮂</button>
+          <button id="btnCopy" class="btn">Copiar</button>
         </div>
       </div>
-      <div id="output-card" class="output-card">
-        <div id="output" class="output">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt,
-          libero totam! Nemo nobis dignissimos magnam exercitationem incidunt
-          dolorem debitis molestias asperiores harum, sunt ea mollitia dolorum
-          eum quis provident alias!
+      <div id="input-card" class="card items-end">
+        <div id="input" class="container-txt-input">
+          <textarea
+            name="inputIn"
+            id="inputIn"
+            class="textarea textarea-input"
+            placeholder="Ingresa Texto"
+            cols="60"
+            rows="5"
+            autofocus
+          ></textarea>
         </div>
-        <div>
-          <button class="btn">copiar</button>
+      </div>
+      <div id="output-card" class="card">
+        <div id="output" class="output">
+          <textarea
+            name="inputOut"
+            id="inputOut"
+            class="textarea textarea-output"
+            placeholder="Cifrar"
+            cols="60"
+            rows="5"
+          ></textarea>
         </div>
       </div>
     </main>
-    <footer class="footer">pie de pagina</footer>
+    <footer id="footer" class="footer">Hecha por ElMarchas</footer>
     <script type="module" src="app.js"></script>
   </body>
 </html>
