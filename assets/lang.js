@@ -21,7 +21,7 @@ const lang = {
     btnCopy: "Copiar",
     inputIn: "Ingresa Texto",
     inputOut: ["Cifrar", "Descifrar"],
-    footer: "Hecho por ElMarchas",
+    footer: "Hecha por ElMarchas [Pon el github wey]",
   },
 };
 

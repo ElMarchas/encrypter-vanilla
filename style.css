@@ -212,41 +212,54 @@ body {
 
 .main {
   margin-top: 4rem;
-  width: 90vw;
+  width: 100vw;
   /*height: 80vh;*/
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-self: flex-start;
   column-gap: 0.5rem;
-  padding-inline: 3rem;
+  padding-inline: 1rem;
   padding-block: 0.5rem;
 }
 
 .hcard {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-items: flex-end;
   width: 100%;
+  max-width: 1400px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-end;
   height: fit-content;
 }
 
-.hcard-p {
+.hc-c {
   display: flex;
-  column-gap: 2rem;
-  padding-left: 11.25rem;
-  padding-right: 2rem;
+  width: 20%;
+  column-gap: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
-.hcard-btn {
-  display: flex;
-  column-gap: 2.2rem;
-  padding-left: 1.2rem;
+.hc-c1 {
+  justify-content: flex-end;
+}
+.hc-c2 {
+  justify-content: flex-end;
+}
+.hc-c3 {
+  width: 68px;
+  justify-content: center;
+}
+.hc-c4 {
+  justify-content: flex-start;
+}
+.hc-c5 {
+  justify-content: flex-end;
 }
 
 .card {
-  width: 46%;
+  width: 48%;
   padding-block: 1rem;
   display: flex;
   flex-direction: column;
@@ -263,7 +276,8 @@ body {
 }
 
 .textarea {
-  width: 98%;
+  width: 100%;
+  min-width: 500px;
   max-width: 650px;
   border-radius: 0.5rem;
   padding-left: 1.2rem;
@@ -350,3 +364,5 @@ body {
 .btn-primary:active {
   background-color: var(--amber-500);
 }
+
+/* breack en 1025px */
