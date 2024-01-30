@@ -18,9 +18,15 @@
         <div><img src="./assets/logoa.svg" alt="Logo Laura" /></div>
         <div id="title">Cifrador</div>
       </div>
-      <div class="settings">
-        <button id="btnLang" class="btn btn-primary">English</button>
-        <button id="btnPro" class="btn btn-primary">Versión Pro</button>
+      <div class="header-btns">
+        <div class="tooltip">
+          <button id="btnLang" class="btn btn-primary">English</button>
+          <span id="toolbtnLang" class="tooltiptext">Cambiar idioma</span>
+        </div>
+        <div class="tooltip">
+          <button id="btnPro" class="btn btn-primary">Versión Pro</button>
+          <span id="toolbtnPro" class="tooltiptext">Activar versión pro</span>
+        </div>
       </div>
     </header>
     <main class="main">
@@ -29,16 +35,34 @@
           <p id="conditional">🛈Solo minusculas y sin acentos.</p>
         </div>
         <div class="hc-c hc-c2">
-          <button id="btnEncrypt" class="btn">Cifrar</button>
-          <button id="btnDecrypt" class="btn">Descifrar</button>
+          <div class="tooltip">
+            <button id="btnEncrypt" class="btn">Cifrar</button>
+            <span id="toolbtnEncrypt" class="tooltiptext"
+              >Botón para cifrar
+            </span>
+          </div>
+          <div class="tooltip">
+            <button id="btnDecrypt" class="btn">Descifrar</button>
+            <span id="toolbtnDecrypt" class="tooltiptext"
+              >Botón para descifrar
+            </span>
+          </div>
         </div>
         <div class="hc-c hc-c3">
-          <button id="btnSwap" class="btn btn-icon">⮂</button>
+          <div class="tooltip">
+            <button id="btnSwap" class="btn btn-icon">⮂</button>
+            <span id="toolbtnSwap" class="tooltiptext"
+              >Botón para mover texto
+            </span>
+          </div>
         </div>
         <div class="hc-c hc-c4">
-          <button id="btnCopy" class="btn">Copiar</button>
+          <div class="tooltip">
+            <button id="btnCopy" class="btn">Copiar</button>
+            <span id="toolbtnCopy" class="tooltiptext">Botón para copiar </span>
+          </div>
         </div>
-        <div class="hc-c hc-c5"></div>
+        <div class="hc-c hc-c5"><!-- Detectar idioma--></div>
       </div>
       <div id="input-card" class="card items-end">
         <div id="input" class="container-txt-input">

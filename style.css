@@ -223,6 +223,11 @@ body {
   padding-block: 0.5rem;
 }
 
+.header-btns {
+  display: flex;
+  column-gap: 1rem;
+}
+
 .hcard {
   display: flex;
   width: 100%;
@@ -363,6 +368,34 @@ body {
 }
 .btn-primary:active {
   background-color: var(--amber-500);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  top: 115%;
+  left: 0;
+  margin-left: 0px;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 0.85;
 }
 
 /* breack en 1025px */

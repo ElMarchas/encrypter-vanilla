@@ -17,8 +17,9 @@ const setLanguaje = (_lang) => {
 
   Object.keys(lang[_lang]).forEach((key) => {
     d.getElementById(key).innerText = lang[_lang][key];
-    if (key == "inputOut") {
-      d.getElementById(key).innerText = lang[_lang][key][0];
+    if (key == "inputOut" || key == "inputIn") {
+      d.getElementById(key).innerText = "";
+      d.getElementById(key).setAttribute("placeholder", lang[_lang][key][0]);
     }
   });
 };
