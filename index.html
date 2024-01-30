@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="assets/logoa.svg" />
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
@@ -93,6 +94,34 @@
     <footer id="footer" class="footer">
       Hecha por ElMarchas [Pon el github wey]
     </footer>
+
+    <div id="mainModal" class="modal">
+      <div class="modal-content">
+        <span id="modalClose" class="modalClose">&times;</span>
+        <div id="modalSubContent" class="modal-sub-content">
+          <p>Form para iniciar sesion</p>
+          <p>Input Correo o nombre de usuario</p>
+          <p>Input contraseña</p>
+          <p>Demas cosas</p>
+        </div>
+        <div class="header-btns">
+          <div class="tooltip">
+            <button id="modalAccept" class="btn btn-secondary">
+              Comprar pro
+            </button>
+            <span id="toolModalAccept" class="tooltiptext"
+              >Activa versión pro
+            </span>
+          </div>
+          <div class="tooltip">
+            <button id="modalCancel" class="btn btn-danger">Cancelar</button>
+            <span id="toolModalCancel" class="tooltiptext"
+              >Continuar versión normal
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="app.js"></script>
   </body>
 </html>

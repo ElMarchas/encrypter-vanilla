@@ -160,6 +160,7 @@ button {
   --slate-700: rgb(51 65 85);
   --slate-800: rgb(30 41 59);
   --slate-900: rgb(15 23 42);
+  --sky-500: rgb(14 165 233);
   --sky-600: rgb(2 132 199);
   --sky-700: rgb(3 105 161);
   --sky-800: rgb(7 89 133);
@@ -170,6 +171,11 @@ button {
   --amber-700: rgb(180 83 9);
   --amber-800: rgb(146 64 14);
   --amber-900: rgb(120 53 15);
+  --rose-500: rgb(244 63 94);
+  --rose-600: rgb(225 29 72);
+  --rose-700: rgb(190 18 60);
+  --rose-800: rgb(159 18 57);
+  --rose-900: rgb(136 19 55);
   --bg-degradado1: #25355b;
   --bg-degradado2: rgb(10, 12, 45);
 }
@@ -370,6 +376,30 @@ body {
   background-color: var(--amber-500);
 }
 
+.btn-secondary {
+  color: var(--slate-200);
+  background-color: var(--sky-600);
+}
+
+.btn-secondary:hover {
+  background-color: var(--sky-700);
+}
+.btn-secondary:active {
+  background-color: var(--sky-500);
+}
+
+.btn-danger {
+  color: var(--slate-200);
+  background-color: var(--rose-600);
+}
+
+.btn-danger:hover {
+  background-color: var(--rose-700);
+}
+.btn-danger:active {
+  background-color: var(--rose-500);
+}
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -398,4 +428,44 @@ body {
   opacity: 0.85;
 }
 
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(8, 50, 87, 0.4);
+}
+
+.modal-content {
+  max-width: 85vw;
+  min-width: 20vw;
+  width: fit-content;
+  background-color: var(--slate-800);
+  margin: auto;
+  padding: 20px;
+  border-radius: 0.25rem;
+}
+
+.modal-sub-content {
+  padding-block: 0.5rem;
+}
+
+.modalClose {
+  color: #aaaaaa;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.modalClose:hover,
+.modalCloseF:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 /* breack en 1025px */

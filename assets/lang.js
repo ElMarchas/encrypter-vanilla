@@ -16,6 +16,12 @@ const lang = {
     inputIn: ["Enter Text", "Enter Text"],
     inputOut: ["Encrypt", "Decrypt"],
     footer: "by ElMarchas",
+    modalSubContent:
+      "<p>Form log in</p><p>Input email or username</p><p>Input password</p><p>more form things</p>",
+    modalAccept: "Buy Pro",
+    modalCancel: "Cancel",
+    toolModalAccept: "Activate pro version",
+    toolModalCancel: "Continue normal version",
   },
   ES: {
     title: "Cifrador",
@@ -34,6 +40,12 @@ const lang = {
     inputIn: ["Ingresa Texto", "Ingresa Texto"],
     inputOut: ["Cifrar", "Descifrar"],
     footer: "Hecha por ElMarchas [Pon el github wey]",
+    modalSubContent:
+      "<p>Form para iniciar sesion</p><p>Input Correo o nombre de usuario</p><p>Input contraseña</p><p>Demas cosas</p>",
+    modalAccept: "Comprar Pro",
+    modalCancel: "Cancelar",
+    toolModalAccept: "Activa versión pro",
+    toolModalCancel: "Continuar versión normal",
   },
 };
 

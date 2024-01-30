@@ -2,13 +2,20 @@ import lang from "./assets/lang.js";
 
 var data = {
   languaje: "EN",
-  bntLang: document.getElementById("btnLang"),
-  bntPro: document.getElementById("btnPro"),
-  bntPro: document.getElementById("btnPro"),
-  btnEncry: document.getElementById("btnEncrypt"),
-  btnDecry: document.getElementById("btnDecrypt"),
-  btnSwap: document.getElementById("btnSwap"),
-  btnCopy: document.getElementById("btnCopy"),
+  buttons: {
+    bntLang: document.getElementById("btnLang"),
+    bntPro: document.getElementById("btnPro"),
+    btnEncry: document.getElementById("btnEncrypt"),
+    btnDecry: document.getElementById("btnDecrypt"),
+    btnSwap: document.getElementById("btnSwap"),
+    btnCopy: document.getElementById("btnCopy"),
+  },
+  modal: {
+    main: document.getElementById("mainModal"),
+    btnClose: document.getElementById("modalClose"),
+    btnYes: document.getElementById("modalAccept"),
+    btnNo: document.getElementById("modalCancel"),
+  },
 };
 
 const setLanguaje = (_lang) => {
@@ -21,6 +28,9 @@ const setLanguaje = (_lang) => {
       d.getElementById(key).innerText = "";
       d.getElementById(key).setAttribute("placeholder", lang[_lang][key][0]);
     }
+    if (key == "modalSubContent") {
+      d.getElementById(key).innerHTML = lang[_lang][key];
+    }
   });
 };
 
@@ -30,10 +40,34 @@ const changeLanguaje = () => {
   return setLanguaje(data.languaje);
 };
 
+const openModal = () => {
+  data.modal.main.style.display = "block";
+};
+
+const closeModal = (event) => {
+  data.modal.main.style.display = "none";
+  if (!event.currentTarget.ispro) return;
+
+  console.log("aactivar version pro");
+  //activar version pro
+};
+
+window.onclick = function (event) {
+  if (event.target == data.modal.main) {
+    data.modal.main.style.display = "none";
+  }
+  //este lo puedes meter abajo en data.moda.main tal vez con click
+};
+
 const setup = () => {
   setLanguaje(data.languaje);
 
-  data.bntLang.addEventListener("click", changeLanguaje);
+  data.buttons.bntLang.addEventListener("click", changeLanguaje);
+  data.buttons.bntPro.addEventListener("click", openModal);
+  data.modal.btnClose.addEventListener("click", closeModal);
+  data.modal.btnNo.addEventListener("click", closeModal);
+  data.modal.btnYes.addEventListener("click", closeModal);
+  data.modal.btnYes.ispro = true;
 };
 
 setup();
