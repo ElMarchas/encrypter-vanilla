@@ -2,13 +2,21 @@ import lang from "./assets/lang.js";
 
 var data = {
   languaje: "EN",
+  maxChars: 30,
+  inputIn: document.getElementById("inputIn"),
+  inputCard: document.getElementById("inputCard"),
+  inputCardFoot: document.getElementById("inputCardFoot"),
+  inputOut: document.getElementById("inputOut"),
+  outputCard: document.getElementById("outputCard"),
   buttons: {
     bntLang: document.getElementById("btnLang"),
     bntPro: document.getElementById("btnPro"),
     btnEncry: document.getElementById("btnEncrypt"),
     btnDecry: document.getElementById("btnDecrypt"),
     btnSwap: document.getElementById("btnSwap"),
+    btnErase: document.getElementById("btnErase"),
     btnCopy: document.getElementById("btnCopy"),
+    btnCopy2: document.getElementById("btnCopy2"),
   },
   modal: {
     main: document.getElementById("mainModal"),
@@ -16,6 +24,45 @@ var data = {
     btnYes: document.getElementById("modalAccept"),
     btnNo: document.getElementById("modalCancel"),
   },
+};
+
+const inputInHandler = (e) => {
+  let handler = e.target.value;
+  //console.log(e.target.value);
+  data.inputOut.value = e.target.value;
+
+  if (e.target.value.length > data.maxChars) {
+    handler = handler.substring(0, data.maxChars);
+
+    data.inputIn.value = handler;
+  }
+
+  setInputChars(handler.length);
+};
+
+const inputInFocus = () => {
+  data.inputIn.focus();
+};
+
+const inputOutHandler = (e) => {
+  /*
+
+   <div id="box">
+      <!-- this is a comment -->
+    </div>
+
+  if (box.textContent.trim() === '') {
+  console.log('✅ Element is empty');
+} else {
+  console.log('⛔️ Element is NOT empty');
+}
+  */
+  console.log("estoy dentro");
+  console.log(e.target.value);
+};
+
+const setInputChars = (chars) => {
+  data.inputCardFoot.innerHTML = `${chars}/${data.maxChars}`;
 };
 
 const setLanguaje = (_lang) => {
@@ -59,11 +106,34 @@ window.onclick = function (event) {
   //este lo puedes meter abajo en data.moda.main tal vez con click
 };
 
+/*
+
+window.onkeydown = function (event) {
+  console.log(event);
+};
+*/
+
 const setup = () => {
   setLanguaje(data.languaje);
+  setInputChars(0);
+
+  data.inputIn.addEventListener("input", inputInHandler);
+  data.inputOut.addEventListener("change", inputOutHandler);
+  data.inputCard.addEventListener("click", inputInFocus);
 
   data.buttons.bntLang.addEventListener("click", changeLanguaje);
   data.buttons.bntPro.addEventListener("click", openModal);
+
+  data.buttons.btnErase.addEventListener("click", () => {
+    data.inputIn.value = "";
+  });
+  data.buttons.btnCopy.addEventListener("click", () => {
+    navigator.clipboard.writeText(data.inputOut.value);
+  });
+  data.buttons.btnCopy2.addEventListener("click", () => {
+    navigator.clipboard.writeText(data.inputOut.value);
+  });
+
   data.modal.btnClose.addEventListener("click", closeModal);
   data.modal.btnNo.addEventListener("click", closeModal);
   data.modal.btnYes.addEventListener("click", closeModal);

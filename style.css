@@ -269,49 +269,70 @@ body {
   justify-content: flex-end;
 }
 
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
 .card {
-  width: 48%;
-  padding-block: 1rem;
+  width: 100%;
+  min-width: 500px;
+  max-width: 650px;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-end;
+  gap: 0.25rem;
+  border: var(--slate-600) solid 1px;
+  border-radius: 0.5rem;
 }
 
-.items-end {
-  align-items: flex-end;
-}
-
-.container-txt-input {
+.inputIn-card {
   display: flex;
-  justify-content: flex-end;
+}
+
+.inputIn-card-txta {
+  width: 98%;
+}
+
+.inputIn-card-x {
+  width: 38px;
+}
+
+.footer-card {
+  display: flex;
+  align-self: flex-end;
+  align-items: flex-end;
+  align-content: flex-end;
+  color: var(--slate-400);
+}
+
+.card-output {
+  background: center/ 28% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
 }
 
 .textarea {
   width: 100%;
-  min-width: 500px;
-  max-width: 650px;
-  border-radius: 0.5rem;
-  padding-left: 1.2rem;
-  padding-right: 3.25rem;
-  padding-block: 1rem;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
   font-size: 1.7rem;
 
   background-color: var(--slate-800);
   color: var(--slate-400);
+  background-color: transparent;
   resize: none;
   overflow: hidden;
+  border-width: 0;
 }
 
 .textarea:focus {
   outline: none;
-}
-
-.textarea-input {
-  background-color: var(--slate-950);
-}
-
-.textarea-output {
-  background: center/ 28% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
 }
 
 .output-card {
@@ -358,10 +379,11 @@ body {
 }
 
 .btn-icon {
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.4rem;
   border-radius: 25rem;
   font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  background-color: transparent;
 }
 
 .btn-primary {
@@ -429,7 +451,7 @@ body {
 }
 
 .modal {
-  display: block;
+  display: none;
   position: fixed;
   z-index: 1;
   padding-top: 100px;

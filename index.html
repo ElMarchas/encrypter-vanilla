@@ -65,34 +65,51 @@
         </div>
         <div class="hc-c hc-c5"><!-- Detectar idioma--></div>
       </div>
-      <div id="input-card" class="card items-end">
-        <div id="input" class="container-txt-input">
-          <textarea
-            name="inputIn"
-            id="inputIn"
-            class="textarea textarea-input"
-            placeholder="Ingresa Texto"
-            cols="60"
-            rows="5"
-            autofocus
-          ></textarea>
+      <div class="container">
+        <div id="inputCard" class="card">
+          <div id="input" class="inputIn-card">
+            <div class="inputIn-card-txta">
+              <textarea
+                name="inputIn"
+                id="inputIn"
+                class="textarea"
+                placeholder="Ingresa Texto"
+                cols="60"
+                rows="5"
+                autofocus
+              ></textarea>
+            </div>
+            <div class="inputIn-card-x">
+              <div class="tooltip">
+                <button id="btnErase" class="btn btn-icon">✖️</button>
+                <span id="toolbtnErase" class="tooltiptext">Borrar </span>
+              </div>
+            </div>
+          </div>
+          <div id="inputCardFoot" class="footer-card">10/500</div>
         </div>
-      </div>
-      <div id="output-card" class="card">
-        <div id="output" class="output">
-          <textarea
-            name="inputOut"
-            id="inputOut"
-            class="textarea textarea-output"
-            placeholder="Cifrar"
-            cols="60"
-            rows="5"
-          ></textarea>
+        <div id="outputCard" class="card card-output">
+          <div id="output" class="output2">
+            <textarea
+              name="inputOut"
+              id="inputOut"
+              class="textarea"
+              placeholder="Cifrar"
+              cols="60"
+              rows="5"
+            ></textarea>
+          </div>
+          <div class="footer-card">
+            <div class="tooltip">
+              <button id="btnCopy2" class="btn btn-icon">📄</button>
+              <span id="toolbtnCopy2" class="tooltiptext">Copiar </span>
+            </div>
+          </div>
         </div>
       </div>
     </main>
     <footer id="footer" class="footer">
-      Hecha por ElMarchas [Pon el github wey]
+      boton historial abajo Hecha por ElMarchas [Pon el github wey]
     </footer>
 
     <div id="mainModal" class="modal">
