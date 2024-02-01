@@ -330,7 +330,7 @@ body {
 }
 
 .card-output {
-  background: center/ 10% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
+  background: center/ 40% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
 }
 
 .textarea {
@@ -576,5 +576,9 @@ body {
 
   .border-top {
     border-top: var(--slate-600) solid 1px;
+  }
+
+  .card-output {
+    background: center/ 30% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
   }
 }
