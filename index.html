@@ -32,16 +32,18 @@
     </header>
     <main class="main">
       <div id="buttons-card" class="hcard">
-        <div class="hc-c hc-c1">
-          <p id="conditional">🛈Solo minusculas y sin acentos.</p>
+        <div id="divConLabel" class="hc-c hc-c2 hc1">
+          <p id="conLabel">🛈Solo minusculas y sin acentos.</p>
         </div>
-        <div class="hc-c hc-c2">
+        <div class="hc-c hc2">
           <div class="tooltip">
             <button id="btnEncrypt" class="btn">Cifrar</button>
             <span id="toolbtnEncrypt" class="tooltiptext"
               >Botón para cifrar
             </span>
           </div>
+        </div>
+        <div class="hc-c hc3">
           <div class="tooltip">
             <button id="btnDecrypt" class="btn">Descifrar</button>
             <span id="toolbtnDecrypt" class="tooltiptext"
@@ -49,7 +51,7 @@
             </span>
           </div>
         </div>
-        <div class="hc-c hc-c3">
+        <div class="hc-c hc-c-center hc4">
           <div class="tooltip">
             <button id="btnSwap" class="btn btn-icon">⮂</button>
             <span id="toolbtnSwap" class="tooltiptext"
@@ -57,16 +59,24 @@
             </span>
           </div>
         </div>
-        <div class="hc-c hc-c4">
+        <div class="hc-c hc5">
           <div class="tooltip">
             <button id="btnCopy" class="btn">Copiar</button>
             <span id="toolbtnCopy" class="tooltiptext">Botón para copiar </span>
           </div>
         </div>
-        <div class="hc-c hc-c5"><!-- Detectar idioma--></div>
+        <div id="divConLive" class="hc-c hc6">
+          <div id="conLive" class="tooltip">
+            <button id="btnLive" class="btn">Detectar</button>
+            <span id="toolbtnLive" class="tooltiptext"
+              >Botón para detectar
+            </span>
+          </div>
+        </div>
+        <div class="hc-c hc-c2 hc7"><!-- Detectar idioma--></div>
       </div>
       <div class="container">
-        <div id="inputCard" class="card">
+        <div id="inputCard" class="card border-top">
           <div id="input" class="inputIn-card">
             <div class="inputIn-card-txta">
               <textarea
@@ -91,6 +101,7 @@
         <div id="outputCard" class="card card-output">
           <div id="output" class="output2">
             <textarea
+              spellcheck="false"
               name="inputOut"
               id="inputOut"
               class="textarea"
@@ -106,6 +117,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="container">
+        <div class="card border-top">hola wey Tabla de historial</div>
       </div>
     </main>
     <footer id="footer" class="footer">

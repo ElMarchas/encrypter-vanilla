@@ -1,8 +1,13 @@
 import lang from "./assets/lang.js";
 
 var data = {
-  languaje: "EN",
+  language: "ES",
   maxChars: 30,
+  isPro: true,
+  conLabel: document.getElementById("conLabel"),
+  conLive: document.getElementById("conLive"),
+  divConLabel: document.getElementById("divConLabel"),
+  divConLive: document.getElementById("divConLive"),
   inputIn: document.getElementById("inputIn"),
   inputCard: document.getElementById("inputCard"),
   inputCardFoot: document.getElementById("inputCardFoot"),
@@ -65,7 +70,40 @@ const setInputChars = (chars) => {
   data.inputCardFoot.innerHTML = `${chars}/${data.maxChars}`;
 };
 
-const setLanguaje = (_lang) => {
+const setVersion = () => {
+  //arriba es pro abajo es normal
+  if (data.isPro) {
+    data.modal.btnYes.innerHTML = lang[data.language].modalAccept[1];
+    data.conLabel.style.visibility = "hidden";
+    data.conLive.style.visibility = "visible";
+    data.maxChars = 4000;
+
+    data.conLabel.innerHTML = "";
+    data.divConLabel.classList.remove("hc-c2", "hc1");
+    data.divConLabel.classList.add("hc6");
+    data.divConLive.classList.remove("hc6");
+    data.divConLive.classList.add("hc-c2", "hc1");
+  } else {
+    data.modal.btnYes.innerHTML = lang[data.language].modalAccept[0];
+    data.conLabel.style.visibility = "visible";
+    data.conLive.style.visibility = "hidden";
+    data.maxChars = 30;
+
+    data.conLabel.innerHTML = lang[data.language].conLabel;
+    data.divConLive.classList.remove("hc-c2", "hc1");
+    data.divConLive.classList.add("hc6");
+    data.divConLabel.classList.remove("hc6");
+    data.divConLabel.classList.add("hc-c2", "hc1");
+
+    //si esta en automatico desactivalo
+  }
+  if (data.inputIn.value.length > data.maxChars)
+    data.inputIn.value = data.inputIn.value.substring(0, data.maxChars);
+
+  setInputChars(data.inputIn.value.length);
+};
+
+const setLanguage = (_lang) => {
   if (_lang != "ES" && _lang != "EN") _lang = "ES";
   let d = document;
 
@@ -78,13 +116,20 @@ const setLanguaje = (_lang) => {
     if (key == "modalSubContent") {
       d.getElementById(key).innerHTML = lang[_lang][key];
     }
+    if (key == "modalAccept") {
+      if (data.isPro) d.getElementById(key).innerText = lang[_lang][key][1];
+      else d.getElementById(key).innerText = lang[_lang][key][0];
+    }
+    if (key == "conLabel" && data.isPro) {
+      d.getElementById(key).innerText = "";
+    }
   });
 };
 
-const changeLanguaje = () => {
-  if (data.languaje == "ES") data.languaje = "EN";
-  else data.languaje = "ES";
-  return setLanguaje(data.languaje);
+const changeLanguage = () => {
+  if (data.language == "ES") data.language = "EN";
+  else data.language = "ES";
+  return setLanguage(data.language);
 };
 
 const openModal = () => {
@@ -94,9 +139,8 @@ const openModal = () => {
 const closeModal = (event) => {
   data.modal.main.style.display = "none";
   if (!event.currentTarget.ispro) return;
-
-  console.log("aactivar version pro");
-  //activar version pro
+  data.isPro = !data.isPro;
+  setVersion();
 };
 
 window.onclick = function (event) {
@@ -107,21 +151,22 @@ window.onclick = function (event) {
 };
 
 /*
-
+esto para detectar ctl+v si es necesario
 window.onkeydown = function (event) {
   console.log(event);
 };
 */
 
 const setup = () => {
-  setLanguaje(data.languaje);
+  setLanguage(data.language);
   setInputChars(0);
+  setVersion();
 
   data.inputIn.addEventListener("input", inputInHandler);
   data.inputOut.addEventListener("change", inputOutHandler);
   data.inputCard.addEventListener("click", inputInFocus);
 
-  data.buttons.bntLang.addEventListener("click", changeLanguaje);
+  data.buttons.bntLang.addEventListener("click", changeLanguage);
   data.buttons.bntPro.addEventListener("click", openModal);
 
   data.buttons.btnErase.addEventListener("click", () => {
