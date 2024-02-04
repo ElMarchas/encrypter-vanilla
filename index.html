@@ -79,15 +79,16 @@
         <div id="inputCard" class="card border-top">
           <div id="input" class="inputIn-card">
             <div class="inputIn-card-txta">
-              <textarea
+              <div
                 name="inputIn"
                 id="inputIn"
                 class="textarea"
-                placeholder="Ingresa Texto"
-                cols="60"
-                rows="5"
+                data-placeholder="Ingresa Texto"
+                contenteditable="true"
                 autofocus
-              ></textarea>
+              >
+                Texto de Text
+              </div>
             </div>
             <div class="inputIn-card-x">
               <div class="tooltip">
@@ -119,7 +120,17 @@
         </div>
       </div>
       <div class="container">
-        <div class="card border-top">hola wey Tabla de historial</div>
+        <div class="card border-top">
+          <div
+            id="test"
+            style="height: 4rem; width: 4rem; background-color: blueviolet"
+          >
+            <div
+              id="test2"
+              style="height: 1rem; width: 1rem; background-color: rosybrown"
+            ></div>
+          </div>
+        </div>
       </div>
     </main>
     <footer id="footer" class="footer">
@@ -153,6 +164,6 @@
         </div>
       </div>
     </div>
-    <script type="module" src="app.js"></script>
+    <script type="module" src="./app.js"></script>
   </body>
 </html>

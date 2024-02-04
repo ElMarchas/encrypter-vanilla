@@ -314,6 +314,7 @@ body {
 }
 
 .inputIn-card-txta {
+  max-width: 92%;
   flex-grow: 2;
 }
 
@@ -343,10 +344,17 @@ body {
   resize: none;
   overflow: hidden;
   border-width: 0;
+  word-wrap: break-word;
+  pointer-events: auto;
 }
 
 .textarea:focus {
   outline: none;
+}
+
+.textarea:empty:before {
+  content: attr(data-placeholder);
+  color: gray;
 }
 
 .output-card {
@@ -505,6 +513,16 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+
+.test {
+  width: 20rem;
+  height: 10rem;
+  background-color: var(--slate-700);
+}
+
+e {
+  color: var(--rose-500);
+}
 /* breack en 1020px */
 
 @media only screen and (max-width: 1020px) {
@@ -522,9 +540,8 @@ body {
     padding-inline: 0;
   }
 
-  .hc1{
+  .hc1 {
     width: 26%;
-
   }
 
   .hc2 {
@@ -579,6 +596,7 @@ body {
   }
 
   .card-output {
-    background: center/ 30% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
+    background: center/ 30% no-repeat url("./assets/Muñeco.svg"),
+      var(--slate-800);
   }
 }

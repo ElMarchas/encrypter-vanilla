@@ -29,7 +29,7 @@ const lang = {
   },
   ES: {
     title: "Cifrador",
-    conLabel: " 🛈 Solo minusculas y sin acentos .",
+    conLabel: " 🛈 Solo minúsculas y sin acentos .",
     btnLang: "English",
     btnPro: "Versión Pro",
     btnEncrypt: "Cifrar",
