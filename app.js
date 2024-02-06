@@ -3,29 +3,38 @@ import lang from "./assets/lang.js";
 var data = {
   language: "ES",
   maxChars: 30,
-  isPro: true,
+  isPro: false,
+};
+
+const EL = {
   test: document.getElementById("test"),
   test2: document.getElementById("test2"),
-  conLabel: document.getElementById("conLabel"),
-  conLive: document.getElementById("conLive"),
-  divConLabel: document.getElementById("divConLabel"),
-  divConLive: document.getElementById("divConLive"),
-  inputIn: document.getElementById("inputIn"),
-  inputCard: document.getElementById("inputCard"),
-  inputCardFoot: document.getElementById("inputCardFoot"),
-  inputOut: document.getElementById("inputOut"),
-  outputCard: document.getElementById("outputCard"),
-  buttons: {
-    bntLang: document.getElementById("btnLang"),
-    bntPro: document.getElementById("btnPro"),
-    btnEncry: document.getElementById("btnEncrypt"),
-    btnDecry: document.getElementById("btnDecrypt"),
-    btnSwap: document.getElementById("btnSwap"),
-    btnErase: document.getElementById("btnErase"),
-    btnCopy: document.getElementById("btnCopy"),
-    btnCopy2: document.getElementById("btnCopy2"),
+  isPro: {
+    label: document.getElementById("conLabel"),
+    live: document.getElementById("conLive"),
+    divLabel: document.getElementById("divConLabel"),
+    divLive: document.getElementById("divConLive"),
   },
-  modal: {
+  input: {
+    in: document.getElementById("inputIn"),
+    card: document.getElementById("inputCard"),
+    cardFoot: document.getElementById("inputCardFoot"),
+  },
+  output: {
+    out: document.getElementById("inputOut"),
+    card: document.getElementById("outputCard"),
+  },
+  btn: {
+    lang: document.getElementById("btnLang"),
+    pro: document.getElementById("btnPro"),
+    encry: document.getElementById("btnEncrypt"),
+    decry: document.getElementById("btnDecrypt"),
+    swap: document.getElementById("btnSwap"),
+    erase: document.getElementById("btnErase"),
+    copy: document.getElementById("btnCopy"),
+    copy2: document.getElementById("btnCopy2"),
+  },
+  mdl: {
     main: document.getElementById("mainModal"),
     btnClose: document.getElementById("modalClose"),
     btnYes: document.getElementById("modalAccept"),
@@ -33,211 +42,98 @@ var data = {
   },
 };
 
-const handleSelectionChange = () => {
-  console.log("antes");
-  if (document.activeElement !== data.inputIn) {
-    return;
-  }
-  console.log("desp");
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
-  const clonedRange = range.cloneRange();
-  clonedRange.selectNodeContents(data.inputIn);
-  clonedRange.setEnd(range.endContainer, range.endOffset);
-  data.test.innerHTML = clonedRange.toString().length;
-};
-
-function placeCaretAtEnd(el) {
-  //https://stackoverflow.com/questions/6249095/how-to-set-the-caret-cursor-position-in-a-contenteditable-element-div
-  //el.focus();
-  if (
-    typeof window.getSelection != "undefined" &&
-    typeof document.createRange != "undefined"
-  ) {
-    var range = document.createRange();
-    var sel = window.getSelection();
-
-    range.selectNodeContents(el);
-    range.collapse(false);
-
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    const selection = window.getSelection();
-    const range2 = selection.getRangeAt(0);
-    const clonedRange = range2.cloneRange();
-    clonedRange.selectNodeContents(el);
-    clonedRange.setEnd(range2.endContainer, range2.endOffset);
-    data.test.innerHTML = clonedRange.toString().length;
-  } else if (typeof document.body.createTextRange != "undefined") {
-    var textRange = document.body.createTextRange();
-    textRange.moveToElementText(el);
-    textRange.collapse(false);
-    textRange.select();
-  }
-}
-
-const setCarretPositionEnd = () => {
-  let handler = data.inputIn.innerHTML.length;
-  setCarretPosition(handler);
-};
-
 const setCarretPosition = (position) => {
+  const el = EL.input.in;
+  const sel = document.getSelection();
   if (position == undefined) position = 0;
-
-  const el = data.inputIn;
-  const selection = document.getSelection();
-
-  if (!selection || !el) return;
-
+  if (!sel || !el) return;
   // Set the caret to the beggining
-  selection.collapse(el, 0);
-
+  sel.collapse(el, 0);
   // Move the caret to the position
   for (let index = 0; index < position; index++) {
-    selection.modify("move", "forward", "character");
+    sel.modify("move", "forward", "character");
   }
 };
 
-const getCaretPosition2 = (editableDiv) => {
-  //Gracias a este men https://stackoverflow.com/questions/3972014/get-contenteditable-caret-position
-  var caretPos = 0,
-    sel,
-    range;
-  if (window.getSelection) {
-    sel = window.getSelection();
-    if (sel.rangeCount) {
-      range = sel.getRangeAt(0);
-      console.log(range);
-      caretPos = range.endOffset;
-    }
-  } else if (document.selection && document.selection.createRange) {
-    console.log("den3");
-    range = document.selection.createRange();
-    if (range.parentElement() == editableDiv) {
-      var tempEl = document.createElement("span");
-      editableDiv.insertBefore(tempEl, editableDiv.firstChild);
-      var tempRange = range.duplicate();
-      tempRange.moveToElementText(tempEl);
-      tempRange.setEndPoint("EndToEnd", range);
-      caretPos = tempRange.text.length;
-    }
-  }
-  return caretPos;
-};
-
-// node_walk: walk the element tree, stop when func(node) returns false
-function node_walk(node, func) {
-  var result = func(node);
-  for (
-    node = node.firstChild;
-    result !== false && node;
-    node = node.nextSibling
-  )
-    result = node_walk(node, func);
-  return result;
-}
-
-// getCaretPosition: return [start, end] as offsets to elem.textContent that
-//   correspond to the selected portion of text
-//   (if start == end, caret is at given position and no text is selected)
-
-function getCaretPosition3(elem) {
-  console.log(elem);
-  var sel = window.getSelection();
-  var cum_length = [0, 0];
-
-  if (sel.anchorNode == elem) cum_length = [sel.anchorOffset, sel.extentOffset];
-  else {
-    var nodes_to_find = [sel.anchorNode, sel.extentNode];
-    var found = [0, 0];
-    var i;
-    node_walk(elem, function (node) {
-      for (i = 0; i < 2; i++) {
-        if (node == nodes_to_find[i]) {
-          found[i] = true;
-          if (found[i == 0 ? 1 : 0]) return false; // all done
-        }
-      }
-
-      if (node.textContent && !node.firstChild) {
-        for (i = 0; i < 2; i++) {
-          if (!found[i]) cum_length[i] += node.textContent.length;
-        }
-      }
-    });
-    cum_length[0] += sel.anchorOffset;
-    cum_length[1] += sel.extentOffset;
-  }
-  if (cum_length[0] <= cum_length[1]) return cum_length;
-  return [cum_length[1], cum_length[0]];
-}
-
-//tal vez esta si jale
-function getCaretPosition() {
-  var sel = document.getSelection();
+const getCaretPosition = () => {
+  const sel = document.getSelection();
   sel.modify("extend", "backward", "paragraphboundary");
-  var pos = sel.toString().length;
+  const pos = sel.toString().length;
   if (sel.anchorNode != undefined) sel.collapseToEnd();
 
   return pos;
-}
+};
 
 const PintarRojo = (e, text, caret) => {
-  console.log("pintar rojo", caret);
-  console.log("pintar rojo", text);
   e.target.innerHTML = text;
   setCarretPosition(caret);
 };
 
-const handlerInputClick = (e) => {
-  e.stopPropagation();
-
-  let handler = e.target.innerText;
-  let caret = getCaretPosition(e);
-  console.log("caer", caret);
-
-  setInputCharNumber(handler.length, caret);
-};
-
-const hadnlerInputInput = (e) => {
-  e.stopPropagation();
-  let handler = e.target.innerText;
+const validateUpperCase = (text) => {
   const regUpperCase = /[A-Z]/g;
+  let hasCase = false;
 
-  if (e.target.innerText.length > data.maxChars) {
-    handler = handler.substring(0, data.maxChars);
-
-    data.inputIn.innerText = handler;
-  }
-
-  let caret = getCaretPosition(e);
-
-  setInputCharNumber(handler.length, caret);
-
-  let hasUpperCase = handler.match(regUpperCase);
+  let hasUpperCase = text.match(regUpperCase);
   if (hasUpperCase != null) {
-    hasUpperCase = [...new Set(hasUpperCase)];
-
+    hasCase = true;
+    hasUpperCase = [...new Set(hasUpperCase)]; //tal vez puedas quitar esto w
     hasUpperCase.forEach((char) => {
-      handler = handler.replaceAll(char, `<e>${char}</e>`);
+      text = text.replaceAll(char, `<e>${char}</e>`);
     });
   }
-  /*
+  return [text, hasCase];
+};
 
-  while ((match = regUpperCase.exec(handler)) != null) {
-    console.log("match found at " + match.index);
+const validateSpecialCase = (text) => {
+  const regNotAlpha = /(?!(?:\s|\.|,))\W/g;
+  let hasCase = false;
+
+  let hasSpecialCase = text.match(regNotAlpha);
+  if (hasSpecialCase != null) {
+    hasCase = true;
+    hasSpecialCase = [...new Set(hasSpecialCase)];
+    hasSpecialCase.forEach((char) => {
+      text = text.replaceAll(char, `<e>${char}</e>`);
+    });
   }
-  */
-  PintarRojo(e, handler, caret);
-  //e.target.innerHTML = handler;
-  data.inputOut.value = handler;
+  return [text, hasCase];
+};
+
+const handleInputInput = (e) => {
+  e.stopPropagation();
+  const caret = getCaretPosition(e);
+  let text = e.target.innerText;
+  let hasCase = [false, false];
+
+  handleInputCharNumber(caret);
+
+  if (!data.isPro) {
+    [text, hasCase[0]] = validateSpecialCase(text);
+    [text, hasCase[1]] = validateUpperCase(text);
+    PintarRojo(e, text, caret);
+  }
+
+  //e.target.innerHTML = text;
+  EL.output.out.value = text;
+
+  console.log(hasCase);
 
   //placeCaretAtEnd(data.inputIn);
 };
 
-const inputInFocus = (e) => {
-  setCarretPositionEnd();
+const handleInputClick = (e) => {
+  e.stopPropagation();
+  let caret = getCaretPosition(e);
+  handleInputCharNumber(caret);
+};
+
+const handleInputErase = () => {
+  EL.input.in.innerText = "";
+};
+
+const handleInputAreaClick = () => {
+  const handler = EL.input.in.innerHTML.length;
+  setCarretPosition(handler);
 };
 
 const inputOutHandler = (e) => {
@@ -257,48 +153,54 @@ const inputOutHandler = (e) => {
   console.log(e.target.value);
 };
 
-const setInputCharNumber = (chars, caret) => {
+const handleInputCharNumber = (caret) => {
   if (caret == undefined) caret = 0;
-  data.inputCardFoot.innerHTML = `${caret}  :  ${chars}/${data.maxChars}`;
+
+  if (EL.input.in.innerText.length > data.maxChars) {
+    EL.input.in.innerText = EL.input.in.innerText.substring(0, data.maxChars);
+    setCarretPosition(EL.input.in.innerText.length);
+  }
+
+  EL.input.cardFoot.innerHTML = `${caret}  :  ${EL.input.in.innerText.length}/${data.maxChars}`;
 };
 
 const setVersion = () => {
-  //arriba es pro abajo es normal
+  const btnYes = EL.mdl.btnYes;
+  const label = EL.isPro.label;
+  const divLabel = EL.isPro.divLabel;
+  const live = EL.isPro.live;
+  const divLive = EL.isPro.divLive;
   if (data.isPro) {
-    data.modal.btnYes.innerHTML = lang[data.language].modalAccept[1];
-    data.conLabel.style.visibility = "hidden";
-    data.conLive.style.visibility = "visible";
     data.maxChars = 4000;
-
-    data.conLabel.innerHTML = "";
-    data.divConLabel.classList.remove("hc-c2", "hc1");
-    data.divConLabel.classList.add("hc6");
-    data.divConLive.classList.remove("hc6");
-    data.divConLive.classList.add("hc-c2", "hc1");
+    btnYes.innerHTML = lang[data.language].modalAccept[1];
+    label.innerHTML = "";
+    label.style.visibility = "hidden";
+    live.style.visibility = "visible";
+    divLabel.classList.remove("hc-c2", "hc1");
+    divLabel.classList.add("hc6");
+    divLive.classList.remove("hc6");
+    divLive.classList.add("hc-c2", "hc1");
   } else {
-    data.modal.btnYes.innerHTML = lang[data.language].modalAccept[0];
-    data.conLabel.style.visibility = "visible";
-    data.conLive.style.visibility = "hidden";
     data.maxChars = 30;
-
-    data.conLabel.innerHTML = lang[data.language].conLabel;
-    data.divConLive.classList.remove("hc-c2", "hc1");
-    data.divConLive.classList.add("hc6");
-    data.divConLabel.classList.remove("hc6");
-    data.divConLabel.classList.add("hc-c2", "hc1");
-
+    btnYes.innerHTML = lang[data.language].modalAccept[0];
+    label.innerHTML = lang[data.language].conLabel;
+    label.style.visibility = "visible";
+    live.style.visibility = "hidden";
+    divLive.classList.remove("hc-c2", "hc1");
+    divLive.classList.add("hc6");
+    divLabel.classList.remove("hc6");
+    divLabel.classList.add("hc-c2", "hc1");
     //si esta en automatico desactivalo
   }
-
-  if (data.inputIn.innerText.length > data.maxChars)
-    data.inputIn.innerText = data.inputIn.innerText.substring(0, data.maxChars);
-
-  setInputCharNumber(data.inputIn.innerText.length);
+  EL.input.in.innerText = "";
+  EL.input.in.focus();
+  handleInputCharNumber(0);
 };
 
 const setLanguage = (_lang) => {
   if (_lang != "ES" && _lang != "EN") _lang = "ES";
   let d = document;
+  let handlerText = EL.input.in.innerText;
 
   Object.keys(lang[_lang]).forEach((key) => {
     d.getElementById(key).innerText = lang[_lang][key];
@@ -320,66 +222,58 @@ const setLanguage = (_lang) => {
       d.getElementById(key).innerText = "";
     }
   });
+
+  EL.input.in.innerText = handlerText;
 };
 
-const changeLanguage = () => {
-  if (data.language == "ES") data.language = "EN";
-  else data.language = "ES";
+const handleLanguage = () => {
+  data.language =
+    data.language == "ES" ? (data.language = "EN") : (data.language = "ES");
   return setLanguage(data.language);
 };
 
 const openModal = () => {
-  data.modal.main.style.display = "block";
+  EL.mdl.main.style.display = "block";
 };
 
-const closeModal = (event) => {
-  data.modal.main.style.display = "none";
-  if (!event.currentTarget.ispro) return;
+const closeModal = (e) => {
+  EL.mdl.main.style.display = "none";
+  if (!e.currentTarget.ispro) return;
   data.isPro = !data.isPro;
   setVersion();
 };
 
-window.onclick = function (event) {
-  if (event.target == data.modal.main) {
-    data.modal.main.style.display = "none";
-  }
-  //este lo puedes meter abajo en data.moda.main tal vez con click
-};
+const setEvents = () => {
+  /////////////////// INPUT ///////////////////
+  EL.input.in.addEventListener("input", handleInputInput);
+  EL.input.in.addEventListener("click", handleInputClick);
+  EL.input.card.addEventListener("click", handleInputAreaClick);
+  EL.btn.erase.addEventListener("click", handleInputErase);
+  /////////////////// OUTPUT ///////////////////
+  EL.output.out.addEventListener("change", inputOutHandler);
+  EL.btn.copy.addEventListener("click", () => {
+    navigator.clipboard.writeText(EL.output.out.value);
+  });
+  EL.btn.copy2.addEventListener("click", () => {
+    navigator.clipboard.writeText(EL.output.out.value);
+  });
+  /////////////////// MODAL ///////////////////
+  EL.btn.pro.addEventListener("click", openModal);
+  EL.mdl.btnClose.addEventListener("click", closeModal);
+  EL.mdl.btnNo.addEventListener("click", closeModal);
+  EL.mdl.btnYes.addEventListener("click", closeModal);
+  EL.mdl.main.addEventListener("click", closeModal);
+  EL.mdl.btnYes.ispro = true;
 
-/*
-esto para detectar ctl+v si es necesario
-window.onkeydown = function (event) {
-  console.log(event);
+  /////////////////// MISC ///////////////////
+  EL.btn.lang.addEventListener("click", handleLanguage);
 };
-*/
 
 const setup = () => {
   setLanguage(data.language);
-  setInputCharNumber(0);
+  handleInputCharNumber(0);
   setVersion();
-
-  data.inputIn.addEventListener("input", hadnlerInputInput);
-  data.inputIn.addEventListener("click", handlerInputClick);
-  data.inputOut.addEventListener("change", inputOutHandler);
-  data.inputCard.addEventListener("click", inputInFocus);
-
-  data.buttons.bntLang.addEventListener("click", changeLanguage);
-  data.buttons.bntPro.addEventListener("click", openModal);
-
-  data.buttons.btnErase.addEventListener("click", () => {
-    data.inputIn.innerText = "";
-  });
-  data.buttons.btnCopy.addEventListener("click", () => {
-    navigator.clipboard.writeText(data.inputOut.value);
-  });
-  data.buttons.btnCopy2.addEventListener("click", () => {
-    navigator.clipboard.writeText(data.inputOut.value);
-  });
-
-  data.modal.btnClose.addEventListener("click", closeModal);
-  data.modal.btnNo.addEventListener("click", closeModal);
-  data.modal.btnYes.addEventListener("click", closeModal);
-  data.modal.btnYes.ispro = true;
+  setEvents();
 };
 
 setup();
