@@ -330,16 +330,21 @@ body {
   color: var(--slate-400);
 }
 
+.card-out {
+  background: var(--slate-800);
+}
+
 .card-output {
-  background: center/ 40% no-repeat url("./assets/Muñeco.svg"), var(--slate-800);
+  background: center/ 40% no-repeat url("./assets/Muneco.svg"), var(--slate-800);
 }
 
 .textarea {
   width: 100%;
+  min-height: 11rem;
   padding-inline: 1rem;
   padding-block: 0.5rem;
   font-size: 1.7rem;
-  color: var(--slate-400);
+  color: var(--slate-200);
   background-color: transparent;
   resize: none;
   overflow: hidden;

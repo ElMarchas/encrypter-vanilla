@@ -36,10 +36,55 @@ const EL = {
   },
   mdl: {
     main: document.getElementById("mainModal"),
+    content: document.getElementById("modalSubContent"),
     btnClose: document.getElementById("modalClose"),
     btnYes: document.getElementById("modalAccept"),
     btnNo: document.getElementById("modalCancel"),
   },
+};
+
+const encrypt = (text) => {
+  let encrypter = text.replace(/(a|e|i|o|u)/g, (match) => {
+    switch (match) {
+      case "a":
+        return "ai";
+      case "e":
+        return "enter";
+      case "i":
+        return "imes";
+      case "o":
+        return "ober";
+      case "u":
+        return "ufat";
+      default:
+        return match;
+    }
+  });
+  EL.output.out.innerText = encrypter;
+  if (EL.output.out.innerText > 0) toggleBGOutImage(true);
+  console.log(encrypter);
+};
+
+const decrypt = (text) => {
+  let encrypter = text.replace(/(ai|enter|imes|ober|ufat)/g, (match) => {
+    switch (match) {
+      case "ai":
+        return "a";
+      case "enter":
+        return "e";
+      case "imes":
+        return "i";
+      case "ober":
+        return "o";
+      case "ufat":
+        return "u";
+      default:
+        return match;
+    }
+  });
+  EL.output.out.innerText = encrypter;
+  if (EL.output.out.innerText > 0) toggleBGOutImage(true);
+  console.log(encrypter);
 };
 
 const setCarretPosition = (position) => {
@@ -64,7 +109,7 @@ const getCaretPosition = () => {
   return pos;
 };
 
-const PintarRojo = (e, text, caret) => {
+const highlightCases = (e, text, caret) => {
   e.target.innerHTML = text;
   setCarretPosition(caret);
 };
@@ -102,15 +147,18 @@ const validateSpecialCase = (text) => {
 const handleInputInput = (e) => {
   e.stopPropagation();
   const caret = getCaretPosition(e);
+  handleInputCharNumber(caret);
   let text = e.target.innerText;
   let hasCase = [false, false];
 
-  handleInputCharNumber(caret);
-
   if (!data.isPro) {
+    const regProblems = /[<>/&_]+/g; //si el char es ><&_ [return  mensaje] o mejor metemos un remplasazo EZ PZ
+    text = text.replaceAll(regProblems, "");
     [text, hasCase[0]] = validateSpecialCase(text);
     [text, hasCase[1]] = validateUpperCase(text);
-    PintarRojo(e, text, caret);
+    highlightCases(e, text, caret);
+
+    return;
   }
 
   //e.target.innerHTML = text;
@@ -127,8 +175,55 @@ const handleInputClick = (e) => {
   handleInputCharNumber(caret);
 };
 
+const handleEncyptBtn = () => {
+  let text = EL.input.in.innerText;
+  if (text == undefined || text == "") return;
+  let hasCase = [false, false];
+
+  if (!data.isPro) {
+    let modalText = "";
+    [text, hasCase[0]] = validateSpecialCase(text);
+    [text, hasCase[1]] = validateUpperCase(text);
+
+    if (hasCase[0] || hasCase[1]) {
+      if (hasCase[1]) modalText = lang[data.language].modalContUpper;
+      if (hasCase[0]) modalText += lang[data.language].modalContSpecial;
+      modalText += lang[data.language].modalContFoot;
+      EL.mdl.content.innerHTML = modalText;
+      EL.mdl.btnYes.innerText = lang[data.language].modalAccept[2];
+      openModal();
+      return;
+    }
+  }
+  encrypt(text);
+};
+
+const handleDecyptBtn = () => {
+  let text = EL.input.in.innerText;
+  if (text == undefined || text == "") return;
+  let hasCase = [false, false];
+
+  if (!data.isPro) {
+    let modalText = "";
+    [text, hasCase[0]] = validateSpecialCase(text);
+    [text, hasCase[1]] = validateUpperCase(text);
+
+    if (hasCase[0] || hasCase[1]) {
+      if (hasCase[1]) modalText = lang[data.language].modalContUpper;
+      if (hasCase[0]) modalText += lang[data.language].modalContSpecial;
+      modalText += lang[data.language].modalContFoot;
+      EL.mdl.content.innerHTML = modalText;
+      EL.mdl.btnYes.innerText = lang[data.language].modalAccept[2];
+      openModal();
+      return;
+    }
+  }
+  decrypt(text);
+};
+
 const handleInputErase = () => {
   EL.input.in.innerText = "";
+  toggleBGOutImage(false);
 };
 
 const handleInputAreaClick = () => {
@@ -162,6 +257,12 @@ const handleInputCharNumber = (caret) => {
   }
 
   EL.input.cardFoot.innerHTML = `${caret}  :  ${EL.input.in.innerText.length}/${data.maxChars}`;
+};
+
+const toggleBGOutImage = (state) => {
+  console.log(state);
+  if (state) EL.output.card.classList.remove("card-output");
+  else EL.output.card.classList.add("card-output");
 };
 
 const setVersion = () => {
@@ -203,6 +304,12 @@ const setLanguage = (_lang) => {
   let handlerText = EL.input.in.innerText;
 
   Object.keys(lang[_lang]).forEach((key) => {
+    if (
+      key == "modalContUpper" ||
+      key == "modalContSpecial" ||
+      key == "modalContFoot"
+    )
+      return;
     d.getElementById(key).innerText = lang[_lang][key];
     if (key == "inputOut" || key == "inputIn") {
       d.getElementById(key).innerText = "";
@@ -239,8 +346,19 @@ const openModal = () => {
 const closeModal = (e) => {
   EL.mdl.main.style.display = "none";
   if (!e.currentTarget.ispro) return;
+  if (e.currentTarget.innerText == "OK") {
+    EL.mdl.content.innerHTML = lang[data.language].modalSubContent;
+    data.isPro
+      ? (EL.mdl.btnYes.innerText = lang[data.language].modalAccept[1])
+      : (EL.mdl.btnYes.innerText = lang[data.language].modalAccept[0]);
+    return;
+  }
   data.isPro = !data.isPro;
   setVersion();
+};
+
+const handleProBtn = () => {
+  openModal();
 };
 
 const setEvents = () => {
@@ -249,16 +367,18 @@ const setEvents = () => {
   EL.input.in.addEventListener("click", handleInputClick);
   EL.input.card.addEventListener("click", handleInputAreaClick);
   EL.btn.erase.addEventListener("click", handleInputErase);
+  EL.btn.encry.addEventListener("click", handleEncyptBtn);
+  EL.btn.decry.addEventListener("click", handleDecyptBtn);
   /////////////////// OUTPUT ///////////////////
   EL.output.out.addEventListener("change", inputOutHandler);
   EL.btn.copy.addEventListener("click", () => {
-    navigator.clipboard.writeText(EL.output.out.value);
+    navigator.clipboard.writeText(EL.output.out.innerText);
   });
   EL.btn.copy2.addEventListener("click", () => {
-    navigator.clipboard.writeText(EL.output.out.value);
+    navigator.clipboard.writeText(EL.output.out.innerText);
   });
   /////////////////// MODAL ///////////////////
-  EL.btn.pro.addEventListener("click", openModal);
+  EL.btn.pro.addEventListener("click", handleProBtn);
   EL.mdl.btnClose.addEventListener("click", closeModal);
   EL.mdl.btnNo.addEventListener("click", closeModal);
   EL.mdl.btnYes.addEventListener("click", closeModal);

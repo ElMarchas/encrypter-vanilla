@@ -22,7 +22,11 @@ const lang = {
     footer: "by ElMarchas",
     modalSubContent:
       "<p>Form log in</p><p>Input email or username</p><p>Input password</p><p>more form things</p>",
-    modalAccept: ["Buy Pro", "Quit Pro"],
+    modalContUpper: "<p>Upper cases are not allowed</p>",
+    modalContSpecial: "<p>Some special chars are not allowed</p>",
+    modalContFoot:
+      "<p>Get access to this and more features becoming PRO user</p>",
+    modalAccept: ["Buy Pro", "Quit Pro", "OK"],
     modalCancel: "Cancel",
     toolModalAccept: "Activate pro version",
     toolModalCancel: "Continue normal version",
@@ -50,7 +54,11 @@ const lang = {
     footer: "Hecha por ElMarchas [Pon el github wey]",
     modalSubContent:
       "<p>Form para iniciar sesion</p><p>Input Correo o nombre de usuario</p><p>Input contraseña</p><p>Demas cosas</p>",
-    modalAccept: ["Comprar Pro", "Quitar Pro"],
+    modalContUpper: "<p>Mayusculas no están permitidas</p>",
+    modalContSpecial: "<p>Algunos caracteres especiales no están permitidos</p>",
+    modalContFoot:
+      "<p>Desbloquea todas las funciones en la versión PRO</p>",
+    modalAccept: ["Comprar Pro", "Quitar Pro", "OK"],
     modalCancel: "Cancelar",
     toolModalAccept: "Activa versión pro",
     toolModalCancel: "Continuar versión normal",
