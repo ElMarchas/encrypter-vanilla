@@ -2,7 +2,7 @@ import lang from "./assets/lang.js";
 
 var data = {
   language: "ES",
-  maxChars: 30,
+  maxChars: 120,
   isPro: false,
 };
 
@@ -107,8 +107,9 @@ const getCaretPosition = () => {
   return pos;
 };
 
-const highlightCases = (e, text, caret) => {
-  e.target.innerHTML = text;
+const highlightCases = (text, caret) => {
+  if (caret == undefined) caret = EL.input.in.innerText.length;
+  EL.input.in.innerHTML = text;
   setCarretPosition(caret);
 };
 
@@ -142,27 +143,46 @@ const validateSpecialCase = (text) => {
   return [text, hasCase];
 };
 
+const validator = (text, regex) => {
+  let hasChar = false;
+  let hasCharArray = text.match(regex);
+  if (hasCharArray != null) {
+    hasChar = true;
+    hasCharArray = [...new Set(hasCharArray)];
+    hasCharArray.forEach((char) => {
+      text = text.replaceAll(char, `<e>${char}</e>`);
+    });
+  }
+  return [text, hasChar];
+};
+
+const isNotPro = (text, caret) => {
+  const regUpperCase = /[A-Z]/g;
+  const regNotAlpha = /(?!(?:\s|\.|,))\W/g;
+  const regProblems = /[<>/&_]+/g; //si el char es ><&_ [return  mensaje] o mejor metemos un remplasazo EZ PZ
+  let hasCase = [false, false];
+
+  text = text.replaceAll(regProblems, "");
+  [text, hasCase[0]] = validator(text, regNotAlpha);
+  [text, hasCase[1]] = validator(text, regUpperCase);
+  highlightCases(text, caret);
+
+  return [hasCase[0], hasCase[1]];
+};
+
 const handleInputInput = (e) => {
   e.stopPropagation();
   const caret = getCaretPosition(e);
   handleInputCharNumber(caret);
   let text = e.target.innerText;
-  let hasCase = [false, false];
 
   if (!data.isPro) {
-    const regProblems = /[<>/&_]+/g; //si el char es ><&_ [return  mensaje] o mejor metemos un remplasazo EZ PZ
-    text = text.replaceAll(regProblems, "");
-    [text, hasCase[0]] = validateSpecialCase(text);
-    [text, hasCase[1]] = validateUpperCase(text);
-    highlightCases(e, text, caret);
-
+    isNotPro(text, caret);
     return;
   }
 
   //e.target.innerHTML = text;
   EL.output.out.value = text;
-
-  console.log(hasCase);
 
   //placeCaretAtEnd(data.inputIn);
 };
@@ -176,16 +196,14 @@ const handleInputClick = (e) => {
 const handleEncyptBtn = () => {
   let text = EL.input.in.innerText;
   if (text == undefined || text == "") return;
-  let hasCase = [false, false];
 
   if (!data.isPro) {
     let modalText = "";
-    [text, hasCase[0]] = validateSpecialCase(text);
-    [text, hasCase[1]] = validateUpperCase(text);
-
-    if (hasCase[0] || hasCase[1]) {
-      if (hasCase[1]) modalText = lang[data.language].modalContUpper;
-      if (hasCase[0]) modalText += lang[data.language].modalContSpecial;
+    let [hasAlpha, hasUpper] = isNotPro(text);
+    console.log(hasAlpha, hasUpper);
+    if (hasAlpha || hasUpper) {
+      if (hasUpper) modalText = lang[data.language].modalContUpper;
+      if (hasAlpha) modalText += lang[data.language].modalContSpecial;
       modalText += lang[data.language].modalContFoot;
       EL.mdl.content.innerHTML = modalText;
       EL.mdl.btnYes.innerText = lang[data.language].modalAccept[2];
@@ -193,6 +211,7 @@ const handleEncyptBtn = () => {
       return;
     }
   }
+
   encrypt(text);
 };
 
@@ -279,7 +298,7 @@ const setVersion = () => {
   const live = EL.isPro.live;
   const divLive = EL.isPro.divLive;
   if (data.isPro) {
-    data.maxChars = 4000;
+    data.maxChars = 5000;
     btnYes.innerHTML = lang[data.language].modalAccept[1];
     label.innerHTML = "";
     label.style.visibility = "hidden";
@@ -289,7 +308,7 @@ const setVersion = () => {
     divLive.classList.remove("hc6");
     divLive.classList.add("hc-c2", "hc1");
   } else {
-    data.maxChars = 30;
+    data.maxChars = 120;
     btnYes.innerHTML = lang[data.language].modalAccept[0];
     label.innerHTML = lang[data.language].conLabel;
     label.style.visibility = "visible";
@@ -302,6 +321,7 @@ const setVersion = () => {
   }
   EL.input.in.innerText = "";
   EL.input.in.focus();
+  setLocalData();
   handleInputCharNumber(0);
 };
 
@@ -336,14 +356,15 @@ const setLanguage = (_lang) => {
       d.getElementById(key).innerText = "";
     }
   });
-
+  setLocalData();
   EL.input.in.innerText = handlerText;
 };
 
 const handleLanguage = () => {
   data.language =
     data.language == "ES" ? (data.language = "EN") : (data.language = "ES");
-  return setLanguage(data.language);
+  setLanguage(data.language);
+  if (!data.isPro) isNotPro(EL.input.in.innerText);
 };
 
 const openModal = () => {
@@ -397,7 +418,21 @@ const setEvents = () => {
   EL.btn.lang.addEventListener("click", handleLanguage);
 };
 
+const setLocalData = () => {
+  localStorage.setItem("data", JSON.stringify(data));
+  return data;
+};
+
+const getLocalData = () => {
+  let local = JSON.parse(localStorage.getItem("data"));
+  if (local == null) {
+    local = setLocalData();
+  }
+  data = local;
+};
+
 const setup = () => {
+  getLocalData();
   setLanguage(data.language);
   handleInputCharNumber(0);
   setVersion();
