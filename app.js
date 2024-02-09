@@ -61,8 +61,7 @@ const encrypt = (text) => {
     }
   });
   EL.output.out.innerText = encrypter;
-  if (EL.output.out.innerText > 0) toggleBGOutImage(true);
-  console.log(encrypter);
+  if (encrypter.length > 0) toggleBGOutImage(true);
 };
 
 const decrypt = (text) => {
@@ -83,8 +82,7 @@ const decrypt = (text) => {
     }
   });
   EL.output.out.innerText = encrypter;
-  if (EL.output.out.innerText > 0) toggleBGOutImage(true);
-  console.log(encrypter);
+  if (encrypter.length > 0) toggleBGOutImage(true);
 };
 
 const setCarretPosition = (position) => {
@@ -223,12 +221,21 @@ const handleDecyptBtn = () => {
 
 const handleInputErase = () => {
   EL.input.in.innerText = "";
+  EL.output.out.innerText = "";
   toggleBGOutImage(false);
 };
 
 const handleInputAreaClick = () => {
   const handler = EL.input.in.innerHTML.length;
   setCarretPosition(handler);
+};
+
+const handleSwap = () => {
+  if (EL.output.out.innerText == "") return;
+  EL.input.in.innerText = EL.output.out.innerText;
+  EL.output.out.innerText = "";
+  toggleBGOutImage();
+  handleInputCharNumber();
 };
 
 const inputOutHandler = (e) => {
@@ -260,8 +267,8 @@ const handleInputCharNumber = (caret) => {
 };
 
 const toggleBGOutImage = (state) => {
-  console.log(state);
-  if (state) EL.output.card.classList.remove("card-output");
+  if (EL.output.out.innerHTML != "")
+    EL.output.card.classList.remove("card-output");
   else EL.output.card.classList.add("card-output");
 };
 
@@ -369,6 +376,7 @@ const setEvents = () => {
   EL.btn.erase.addEventListener("click", handleInputErase);
   EL.btn.encry.addEventListener("click", handleEncyptBtn);
   EL.btn.decry.addEventListener("click", handleDecyptBtn);
+  EL.btn.swap.addEventListener("click", handleSwap);
   /////////////////// OUTPUT ///////////////////
   EL.output.out.addEventListener("change", inputOutHandler);
   EL.btn.copy.addEventListener("click", () => {
