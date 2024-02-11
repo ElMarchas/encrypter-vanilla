@@ -191,14 +191,17 @@ button {
 }
 body {
   background: linear-gradient(var(--slate-900), var(--bg-degradado2));
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .header {
   position: absolute;
   top: 0;
+  max-width: 100%;
   width: 100vw;
   display: flex;
   justify-content: space-between;
@@ -218,6 +221,7 @@ body {
 
 .main {
   margin-top: 4rem;
+  max-width: 100%;
   width: 100vw;
   /*height: 80vh;*/
   display: flex;
@@ -373,9 +377,9 @@ body {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
+  max-width: 100%;
   width: 100vw;
+  flex-shrink: 0;
   display: flex;
   justify-content: flex-end;
   font-size: 0.85rem;
