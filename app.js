@@ -1,9 +1,11 @@
 import lang from "./assets/lang.js";
 
 var data = {
+  isAuto: false,
+  isEncrypt: true,
+  isPro: false,
   language: "ES",
   maxChars: 120,
-  isPro: false,
 };
 
 const EL = {
@@ -30,6 +32,7 @@ const EL = {
     encry: document.getElementById("btnEncrypt"),
     decry: document.getElementById("btnDecrypt"),
     swap: document.getElementById("btnSwap"),
+    live: document.getElementById("btnLive"),
     erase: document.getElementById("btnErase"),
     copy: document.getElementById("btnCopy"),
     copy2: document.getElementById("btnCopy2"),
@@ -44,43 +47,149 @@ const EL = {
 };
 
 const encrypt = (text) => {
-  let encrypter = text.replace(/(a|e|i|o|u)/g, (match) => {
-    switch (match) {
-      case "a":
-        return "ai";
-      case "e":
-        return "enter";
-      case "i":
-        return "imes";
-      case "o":
-        return "ober";
-      case "u":
-        return "ufat";
-      default:
-        return match;
+  let encrypter = text.replace(
+    /(a|e|i|o|u|A|E|I|O|U|á|é|í|ó|ú|Á|É|Í|Ó|Ú|à|è|ì|ò|ù|À|È|Ì|Ò|Ù)/g,
+    (match) => {
+      switch (match) {
+        case "a":
+          return "ai";
+        case "e":
+          return "enter";
+        case "i":
+          return "imes";
+        case "o":
+          return "ober";
+        case "u":
+          return "ufat";
+        case "A":
+          return "AI";
+        case "E":
+          return "ENTER";
+        case "I":
+          return "IMES";
+        case "O":
+          return "OBER";
+        case "U":
+          return "UFAT";
+        case "á":
+          return "aui";
+        case "é":
+          return "eunter";
+        case "í":
+          return "iumes";
+        case "ó":
+          return "ouber";
+        case "ú":
+          return "ufatu";
+        case "Á":
+          return "AUI";
+        case "É":
+          return "EUNTER";
+        case "Í":
+          return "IUMES";
+        case "Ó":
+          return "OUBER";
+        case "Ú":
+          return "UFATU";
+        case "à":
+          return "aoi";
+        case "è":
+          return "eonter";
+        case "ì":
+          return "iomes";
+        case "ò":
+          return "obero";
+        case "ù":
+          return "uofat";
+        case "À":
+          return "AOI";
+        case "È":
+          return "EONTER";
+        case "Ì":
+          return "IOMES";
+        case "Ò":
+          return "OBERO";
+        case "Ù":
+          return "UOFAT";
+        default:
+          return match;
+      }
     }
-  });
+  );
   EL.output.out.innerText = encrypter;
   if (encrypter.length > 0) toggleBGOutImage(true);
 };
 
 const decrypt = (text) => {
-  let encrypter = text.replace(/(ai|enter|imes|ober|ufat)/g, (match) => {
-    switch (match) {
-      case "ai":
-        return "a";
-      case "enter":
-        return "e";
-      case "imes":
-        return "i";
-      case "ober":
-        return "o";
-      case "ufat":
-        return "u";
-      default:
-        return match;
+  let encrypter = text.replace(
+    /(ai|enter|imes|ober|ufat|AI|ENTER|IMES|OBER|UFAT|aui|eunter|iumes|ouber|ufatu|AUI|EUNTER|IUMES|OUBER|UFATU|aoi|eonter|iomes|obero|uofat|AOI|EONTER|IOMES|OBERO|UOFAT)/g,
+    (match) => {
+      switch (match) {
+        case "ai":
+          return "a";
+        case "enter":
+          return "e";
+        case "imes":
+          return "i";
+        case "ober":
+          return "o";
+        case "ufat":
+          return "u";
+        case "AI":
+          return "A";
+        case "ENTER":
+          return "E";
+        case "IMES":
+          return "I";
+        case "OBER":
+          return "O";
+        case "UFAT":
+          return "U";
+        case "aui":
+          return "á";
+        case "eunter":
+          return "é";
+        case "iumes":
+          return "í";
+        case "ouber":
+          return "ó";
+        case "ufatu":
+          return "ú";
+        case "AUI":
+          return "Á";
+        case "EUNTER":
+          return "É";
+        case "IUMES":
+          return "Í";
+        case "OUBER":
+          return "Ó";
+        case "UFATU":
+          return "Ú";
+        case "aoi":
+          return "à";
+        case "eonter":
+          return "è";
+        case "iomes":
+          return "ì";
+        case "obero":
+          return "ò";
+        case "uofat":
+          return "ù";
+        case "AOI":
+          return "À";
+        case "EONTER":
+          return "È";
+        case "IOMES":
+          return "Ì";
+        case "OBERO":
+          return "Ò";
+        case "UOFAT":
+          return "Ù";
+        default:
+          return match;
+      }
     }
-  });
+  );
   EL.output.out.innerText = encrypter;
   if (encrypter.length > 0) toggleBGOutImage(true);
 };
@@ -181,6 +290,12 @@ const handleInputInput = (e) => {
     return;
   }
 
+  if (data.isEncrypt) {
+    encrypt(text);
+  } else {
+    decrypt(text);
+  }
+
   //e.target.innerHTML = text;
   EL.output.out.value = text;
 
@@ -194,6 +309,8 @@ const handleInputClick = (e) => {
 };
 
 const handleEncyptBtn = () => {
+  data.isEncrypt = true;
+  handleAutoOutput(data.isAuto);
   let text = EL.input.in.innerText;
   if (text == undefined || text == "") return;
 
@@ -216,6 +333,8 @@ const handleEncyptBtn = () => {
 };
 
 const handleDecyptBtn = () => {
+  data.isEncrypt = false;
+  handleAutoOutput(data.isAuto);
   let text = EL.input.in.innerText;
   if (text == undefined || text == "") return;
   let hasCase = [false, false];
@@ -235,6 +354,7 @@ const handleDecyptBtn = () => {
       return;
     }
   }
+
   decrypt(text);
 };
 
@@ -242,6 +362,7 @@ const handleInputErase = () => {
   EL.input.in.innerText = "";
   EL.output.out.innerText = "";
   toggleBGOutImage(false);
+  handleInputCharNumber();
 };
 
 const handleInputAreaClick = () => {
@@ -255,6 +376,7 @@ const handleSwap = () => {
   EL.output.out.innerText = "";
   toggleBGOutImage();
   handleInputCharNumber();
+  //si est+a en automatico que traduzca al finalizar
 };
 
 const inputOutHandler = (e) => {
@@ -291,12 +413,35 @@ const toggleBGOutImage = (state) => {
   else EL.output.card.classList.add("card-output");
 };
 
+const handleAutoOutput = (state) => {
+  if (typeof state != "boolean") state = !data.isAuto;
+  if (data.isPro == false) state = false;
+  data.isAuto = state;
+  const btnLive = EL.btn.live;
+  const btnEncry = EL.btn.encry;
+  const btnDecry = EL.btn.decry;
+
+  console.log("automatico");
+
+  btnLive.classList.remove("btn-pro");
+  btnEncry.classList.remove("btn-selected");
+  btnDecry.classList.remove("btn-selected");
+
+  if (data.isAuto) {
+    btnLive.classList.add("btn-pro");
+    if (data.isEncrypt) btnEncry.classList.add("btn-selected");
+    else btnDecry.classList.add("btn-selected");
+  }
+  setLocalData();
+};
+
 const setVersion = () => {
   const btnYes = EL.mdl.btnYes;
   const label = EL.isPro.label;
   const divLabel = EL.isPro.divLabel;
   const live = EL.isPro.live;
   const divLive = EL.isPro.divLive;
+  const btnPro = EL.btn.pro;
   if (data.isPro) {
     data.maxChars = 5000;
     btnYes.innerHTML = lang[data.language].modalAccept[1];
@@ -307,6 +452,7 @@ const setVersion = () => {
     divLabel.classList.add("hc6");
     divLive.classList.remove("hc6");
     divLive.classList.add("hc-c2", "hc1");
+    btnPro.classList.add("btn-pro");
   } else {
     data.maxChars = 120;
     btnYes.innerHTML = lang[data.language].modalAccept[0];
@@ -317,12 +463,14 @@ const setVersion = () => {
     divLive.classList.add("hc6");
     divLabel.classList.remove("hc6");
     divLabel.classList.add("hc-c2", "hc1");
-    //si esta en automatico desactivalo
+    btnPro.classList.remove("btn-pro");
+    data.isAuto = false;
   }
   EL.input.in.innerText = "";
   EL.input.in.focus();
-  setLocalData();
   handleInputCharNumber(0);
+  handleAutoOutput(data.isAuto);
+  setLocalData();
 };
 
 const setLanguage = (_lang) => {
@@ -398,6 +546,7 @@ const setEvents = () => {
   EL.btn.encry.addEventListener("click", handleEncyptBtn);
   EL.btn.decry.addEventListener("click", handleDecyptBtn);
   EL.btn.swap.addEventListener("click", handleSwap);
+  EL.btn.live.addEventListener("click", handleAutoOutput);
   /////////////////// OUTPUT ///////////////////
   EL.output.out.addEventListener("change", inputOutHandler);
   EL.btn.copy.addEventListener("click", () => {
@@ -436,6 +585,7 @@ const setup = () => {
   setLanguage(data.language);
   handleInputCharNumber(0);
   setVersion();
+  handleAutoOutput(data.isAuto);
   setEvents();
 };
 

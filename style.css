@@ -176,6 +176,11 @@ button {
   --rose-700: rgb(190 18 60);
   --rose-800: rgb(159 18 57);
   --rose-900: rgb(136 19 55);
+  --emerald-500: rgb(16 185 129);
+  --emerald-600: rgb(5 150 105);
+  --emerald-700: rgb(4 120 87);
+  --emerald-800: rgb(6 95 70);
+  --emerald-900: rgb(6 78 59);
   --bg-degradado1: #25355b;
   --bg-degradado2: rgb(10, 12, 45);
 }
@@ -199,8 +204,6 @@ body {
 }
 
 .header {
-  position: absolute;
-  top: 0;
   max-width: 100%;
   width: 100vw;
   display: flex;
@@ -220,14 +223,15 @@ body {
 }
 
 .main {
-  margin-top: 4rem;
   max-width: 100%;
   width: 100vw;
   /*height: 80vh;*/
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-self: flex-start;
+  flex-grow: 2;
   column-gap: 0.5rem;
   padding-inline: 1rem;
   padding-block: 0.5rem;
@@ -453,6 +457,22 @@ body {
 }
 .btn-danger:active {
   background-color: var(--rose-500);
+}
+
+.btn-pro {
+  color: var(--slate-200);
+  background-color: var(--emerald-700);
+}
+
+.btn-pro:hover {
+  background-color: var(--emerald-800);
+}
+.btn-pro:active {
+  background-color: var(--emerald-500);
+}
+
+.btn-selected {
+  border-bottom: solid 3px var(--emerald-700);
 }
 
 .tooltip {
