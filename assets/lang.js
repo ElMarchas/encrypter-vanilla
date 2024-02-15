@@ -51,13 +51,13 @@ const lang = {
     toolbtnLive: "Traducción automatica",
     inputIn: ["Ingresa Texto", "Ingresa Texto"],
     inputOut: ["Cifrar", "Descifrar"],
-    footer: "Hecha por ElMarchas [Pon el github wey]",
+    footer: "hecha por ElMarchas",
     modalSubContent:
       "<p>Form para iniciar sesion</p><p>Input Correo o nombre de usuario</p><p>Input contraseña</p><p>Demas cosas</p>",
     modalContUpper: "<p>Mayusculas no están permitidas</p>",
-    modalContSpecial: "<p>Algunos caracteres especiales no están permitidos</p>",
-    modalContFoot:
-      "<p>Desbloquea todas las funciones en la versión PRO</p>",
+    modalContSpecial:
+      "<p>Algunos caracteres especiales no están permitidos</p>",
+    modalContFoot: "<p>Desbloquea todas las funciones en la versión PRO</p>",
     modalAccept: ["Comprar Pro", "Quitar Pro", "OK"],
     modalCancel: "Cancelar",
     toolModalAccept: "Activa versión pro",

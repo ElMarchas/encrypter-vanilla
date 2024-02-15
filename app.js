@@ -8,6 +8,8 @@ var data = {
   maxChars: 120,
 };
 
+var log = [];
+
 const EL = {
   test: document.getElementById("test"),
   test2: document.getElementById("test2"),
@@ -222,36 +224,6 @@ const highlightCases = (text, caret) => {
   setCarretPosition(caret);
 };
 
-const validateUpperCase = (text) => {
-  const regUpperCase = /[A-Z]/g;
-  let hasCase = false;
-
-  let hasUpperCase = text.match(regUpperCase);
-  if (hasUpperCase != null) {
-    hasCase = true;
-    hasUpperCase = [...new Set(hasUpperCase)]; //tal vez puedas quitar esto w
-    hasUpperCase.forEach((char) => {
-      text = text.replaceAll(char, `<e>${char}</e>`);
-    });
-  }
-  return [text, hasCase];
-};
-
-const validateSpecialCase = (text) => {
-  const regNotAlpha = /(?!(?:\s|\.|,))\W/g;
-  let hasCase = false;
-
-  let hasSpecialCase = text.match(regNotAlpha);
-  if (hasSpecialCase != null) {
-    hasCase = true;
-    hasSpecialCase = [...new Set(hasSpecialCase)];
-    hasSpecialCase.forEach((char) => {
-      text = text.replaceAll(char, `<e>${char}</e>`);
-    });
-  }
-  return [text, hasCase];
-};
-
 const validator = (text, regex) => {
   let hasChar = false;
   let hasCharArray = text.match(regex);
@@ -290,16 +262,12 @@ const handleInputInput = (e) => {
     return;
   }
 
+  if (!data.isAuto) return;
   if (data.isEncrypt) {
     encrypt(text);
   } else {
     decrypt(text);
   }
-
-  //e.target.innerHTML = text;
-  EL.output.out.value = text;
-
-  //placeCaretAtEnd(data.inputIn);
 };
 
 const handleInputClick = (e) => {
@@ -337,16 +305,14 @@ const handleDecyptBtn = () => {
   handleAutoOutput(data.isAuto);
   let text = EL.input.in.innerText;
   if (text == undefined || text == "") return;
-  let hasCase = [false, false];
 
   if (!data.isPro) {
     let modalText = "";
-    [text, hasCase[0]] = validateSpecialCase(text);
-    [text, hasCase[1]] = validateUpperCase(text);
-
-    if (hasCase[0] || hasCase[1]) {
-      if (hasCase[1]) modalText = lang[data.language].modalContUpper;
-      if (hasCase[0]) modalText += lang[data.language].modalContSpecial;
+    let [hasAlpha, hasUpper] = isNotPro(text);
+    console.log(hasAlpha, hasUpper);
+    if (hasAlpha || hasUpper) {
+      if (hasUpper) modalText = lang[data.language].modalContUpper;
+      if (hasAlpha) modalText += lang[data.language].modalContSpecial;
       modalText += lang[data.language].modalContFoot;
       EL.mdl.content.innerHTML = modalText;
       EL.mdl.btnYes.innerText = lang[data.language].modalAccept[2];
@@ -376,7 +342,10 @@ const handleSwap = () => {
   EL.output.out.innerText = "";
   toggleBGOutImage();
   handleInputCharNumber();
-  //si est+a en automatico que traduzca al finalizar
+  if (data.isAuto) {
+    if (data.isEncrypt) encrypt(EL.input.in.innerText);
+    else decrypt(EL.input.in.innerText);
+  }
 };
 
 const inputOutHandler = (e) => {
@@ -420,8 +389,6 @@ const handleAutoOutput = (state) => {
   const btnLive = EL.btn.live;
   const btnEncry = EL.btn.encry;
   const btnDecry = EL.btn.decry;
-
-  console.log("automatico");
 
   btnLive.classList.remove("btn-pro");
   btnEncry.classList.remove("btn-selected");
@@ -537,6 +504,19 @@ const handleProBtn = () => {
   openModal();
 };
 
+const setLocalData = () => {
+  localStorage.setItem("data", JSON.stringify(data));
+  return data;
+};
+
+const getLocalData = () => {
+  let local = JSON.parse(localStorage.getItem("data"));
+  if (local == null) {
+    local = setLocalData();
+  }
+  data = local;
+};
+
 const setEvents = () => {
   /////////////////// INPUT ///////////////////
   EL.input.in.addEventListener("input", handleInputInput);
@@ -565,19 +545,6 @@ const setEvents = () => {
 
   /////////////////// MISC ///////////////////
   EL.btn.lang.addEventListener("click", handleLanguage);
-};
-
-const setLocalData = () => {
-  localStorage.setItem("data", JSON.stringify(data));
-  return data;
-};
-
-const getLocalData = () => {
-  let local = JSON.parse(localStorage.getItem("data"));
-  if (local == null) {
-    local = setLocalData();
-  }
-  data = local;
 };
 
 const setup = () => {
