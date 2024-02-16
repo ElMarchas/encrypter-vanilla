@@ -86,7 +86,7 @@
               <div
                 name="inputIn"
                 id="inputIn"
-                class="textarea"
+                class="textarea font-l"
                 data-placeholder="Ingresa Texto"
                 contenteditable="true"
                 autofocus
@@ -107,7 +107,7 @@
               spellcheck="false"
               name="inputOut"
               id="inputOut"
-              class="textarea"
+              class="textarea font-l"
               placeholder="Cifrar"
             ></div>
           </div>
@@ -120,15 +120,17 @@
         </div>
       </div>
       <div class="container">
-        <div class="card border-top">
-          datos 1
-          datos 2 
-        </div>
+        <div class="card border-top">datos 1 datos 2</div>
       </div>
     </main>
     <footer class="footer">
-      <a id="footer" href="https://github.com/elmarchas" target="_blank"
-        >Hecha por ElMarchas</a
+      <div id="footer"></div>
+      <a
+        id="footerL"
+        href="https://github.com/elmarchas"
+        target="_blank"
+        style="margin-left: 0.5rem"
+        >ElMarchas</a
       >
     </footer>
 
@@ -159,6 +161,7 @@
         </div>
       </div>
     </div>
+    <div id="snackbar" class="snackbar">copiar</div>
     <script type="module" src="./app.js"></script>
   </body>
 </html>

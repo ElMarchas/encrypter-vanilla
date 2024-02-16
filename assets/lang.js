@@ -17,9 +17,8 @@ const lang = {
     toolbtnCopy2: "Copy",
     toolbtnErase: "Clean input text",
     toolbtnLive: "translate automatic",
-    inputIn: ["Enter Text", "Enter Text"],
-    inputOut: ["Encrypt", "Decrypt"],
-    footer: "by ElMarchas",
+    inputIn: "Enter Text",
+    footer: "designed by ",
     modalSubContent:
       "<p>Form log in</p><p>Input email or username</p><p>Input password</p><p>more form things</p>",
     modalContUpper: "<p>Upper cases are not allowed</p>",
@@ -30,6 +29,7 @@ const lang = {
     modalCancel: "Cancel",
     toolModalAccept: "Activate pro version",
     toolModalCancel: "Continue normal version",
+    snackbar: "Copied!",
   },
   ES: {
     title: "Cifrador",
@@ -49,9 +49,8 @@ const lang = {
     toolbtnCopy2: "Copiar",
     toolbtnErase: "Borrar texto entrada",
     toolbtnLive: "Traducción automatica",
-    inputIn: ["Ingresa Texto", "Ingresa Texto"],
-    inputOut: ["Cifrar", "Descifrar"],
-    footer: "hecha por ElMarchas",
+    inputIn: "Ingresa Texto",
+    footer: "hecha por ",
     modalSubContent:
       "<p>Form para iniciar sesion</p><p>Input Correo o nombre de usuario</p><p>Input contraseña</p><p>Demas cosas</p>",
     modalContUpper: "<p>Mayusculas no están permitidas</p>",
@@ -62,6 +61,7 @@ const lang = {
     modalCancel: "Cancelar",
     toolModalAccept: "Activa versión pro",
     toolModalCancel: "Continuar versión normal",
+    snackbar: "¡Copiado!",
   },
 };
 

@@ -46,6 +46,7 @@ const EL = {
     btnYes: document.getElementById("modalAccept"),
     btnNo: document.getElementById("modalCancel"),
   },
+  snackbar: document.getElementById("snackbar"),
 };
 
 const encrypt = (text) => {
@@ -257,6 +258,23 @@ const handleInputInput = (e) => {
   handleInputCharNumber(caret);
   let text = e.target.innerText;
 
+  if (text.length < 20) {
+    EL.input.in.classList.add("font-l");
+    EL.input.in.classList.remove("font-m");
+    EL.output.out.classList.add("font-l");
+    EL.output.out.classList.remove("font-m");
+  } else if (text.length < 60) {
+    EL.input.in.classList.remove("font-l");
+    EL.input.in.classList.add("font-m");
+    EL.output.out.classList.remove("font-l");
+    EL.output.out.classList.add("font-m");
+  } else {
+    EL.input.in.classList.remove("font-l");
+    EL.input.in.classList.remove("font-m");
+    EL.output.out.classList.remove("font-l");
+    EL.output.out.classList.remove("font-m");
+  }
+
   if (!data.isPro) {
     isNotPro(text, caret);
     return;
@@ -285,7 +303,6 @@ const handleEncyptBtn = () => {
   if (!data.isPro) {
     let modalText = "";
     let [hasAlpha, hasUpper] = isNotPro(text);
-    console.log(hasAlpha, hasUpper);
     if (hasAlpha || hasUpper) {
       if (hasUpper) modalText = lang[data.language].modalContUpper;
       if (hasAlpha) modalText += lang[data.language].modalContSpecial;
@@ -309,7 +326,6 @@ const handleDecyptBtn = () => {
   if (!data.isPro) {
     let modalText = "";
     let [hasAlpha, hasUpper] = isNotPro(text);
-    console.log(hasAlpha, hasUpper);
     if (hasAlpha || hasUpper) {
       if (hasUpper) modalText = lang[data.language].modalContUpper;
       if (hasAlpha) modalText += lang[data.language].modalContSpecial;
@@ -455,10 +471,7 @@ const setLanguage = (_lang) => {
     d.getElementById(key).innerText = lang[_lang][key];
     if (key == "inputOut" || key == "inputIn") {
       d.getElementById(key).innerText = "";
-      d.getElementById(key).setAttribute(
-        "data-placeholder",
-        lang[_lang][key][0]
-      );
+      d.getElementById(key).setAttribute("data-placeholder", lang[_lang][key]);
     }
     if (key == "modalSubContent") {
       d.getElementById(key).innerHTML = lang[_lang][key];
@@ -500,6 +513,15 @@ const closeModal = (e) => {
   setVersion();
 };
 
+const handleSnackbar = () => {
+  if (EL.output.out.innerText.length < 1) return;
+  if (EL.snackbar.classList.contains("show")) return;
+  EL.snackbar.classList.add("show");
+  setTimeout(() => {
+    EL.snackbar.classList.remove("show");
+  }, 3000);
+};
+
 const handleProBtn = () => {
   openModal();
 };
@@ -531,9 +553,11 @@ const setEvents = () => {
   EL.output.out.addEventListener("change", inputOutHandler);
   EL.btn.copy.addEventListener("click", () => {
     navigator.clipboard.writeText(EL.output.out.innerText);
+    handleSnackbar();
   });
   EL.btn.copy2.addEventListener("click", () => {
     navigator.clipboard.writeText(EL.output.out.innerText);
+    handleSnackbar();
   });
   /////////////////// MODAL ///////////////////
   EL.btn.pro.addEventListener("click", handleProBtn);
