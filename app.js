@@ -535,35 +535,16 @@ const handleProBtn = () => {
   openModal();
 };
 
-const renderlogs = () => {};
-
 const addlog = () => {};
 
-const deletelog = () => {};
-
-const testerino = (test) => {
-  console.log(test);
+const deletelog = (index) => {
+  logs.splice(index, 1);
+  renderlogs();
 };
 
-const handleLogs = () => {
-  /*
-  var ul = document.createElement('ul');
-  var li;
-  
-  root.appendChild(ul); // append the created ul to the root
-
-  arr.forEach(function(item) {
-    if (Array.isArray(item)) { // if it's an array
-      arrToUl(li, item); // call arrToUl with the li as the root
-      return;
-    }
-    
-    li = document.createElement('li'); // create a new list item
-    li.appendChild(document.createTextNode(item)); // append the text to the li
-    ul.appendChild(li); // append the list item to the ul
-  });
-*/
+const renderlogs = () => {
   const LIST = EL.list;
+  LIST.innerHTML = "";
 
   logs.forEach((log, index) => {
     const divCon = document.createElement("div");
@@ -580,7 +561,7 @@ const handleLogs = () => {
     bubbleIn.classList.add("bubble-in");
 
     btn.addEventListener("click", () => {
-      testerino(index);
+      deletelog(index);
     });
 
     bubbleOut.appendChild(document.createTextNode(log[1]));
@@ -593,6 +574,10 @@ const handleLogs = () => {
     divCon.appendChild(bubbleIn);
     LIST.appendChild(divCon);
   });
+};
+
+const handleLogs = () => {
+  renderlogs();
 };
 
 const setLocalData = () => {
