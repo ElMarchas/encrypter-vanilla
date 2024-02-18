@@ -29,7 +29,7 @@ const lang = {
     modalCancel: "Cancel",
     toolModalAccept: "Activate pro version",
     toolModalCancel: "Continue normal version",
-    snackbar: "Copied!",
+    snackbar: "✅ Copied!",
   },
   ES: {
     title: "Cifrador",
@@ -61,7 +61,7 @@ const lang = {
     modalCancel: "Cancelar",
     toolModalAccept: "Activa versión pro",
     toolModalCancel: "Continuar versión normal",
-    snackbar: "¡Copiado!",
+    snackbar: "✅ ¡Copiado!",
   },
 };
 

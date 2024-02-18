@@ -6,17 +6,10 @@ var data = {
   isPro: false,
   language: "ES",
   maxChars: 120,
+  maxLogs: 15,
 };
 
-var logs = [
-  ["entrada4 entrada4 entrada4 entrada4", "salida24"],
-  [
-    "entrada3 dalskjdas dlakjsjda ldkjasd alskdjas dlkasjd alskdjklasd lkajsd laksjd",
-    "salida23sdasd454as4d4as5d4 asdkjashdkjasd kwjhekljqw dalskjhdkljwq daskjhdlkjqwad askjdhqwae",
-  ],
-  ["entrada2 entrada2", "salida22 salida22 salida22"],
-  ["entrada1", " salida2 salida2"],
-];
+var logs = [];
 
 const EL = {
   test: document.getElementById("test"),
@@ -130,6 +123,7 @@ const encrypt = (text) => {
   );
   EL.output.out.innerText = encrypter;
   if (encrypter.length > 0) toggleBGOutImage(true);
+  return encrypter;
 };
 
 const decrypt = (text) => {
@@ -204,6 +198,7 @@ const decrypt = (text) => {
   );
   EL.output.out.innerText = encrypter;
   if (encrypter.length > 0) toggleBGOutImage(true);
+  return encrypter;
 };
 
 const setCarretPosition = (position) => {
@@ -323,7 +318,11 @@ const handleEncyptBtn = () => {
     }
   }
 
-  encrypt(text);
+  let crypt = encrypt(text);
+
+  if (text != "" && crypt != "") {
+    addlog(text, crypt);
+  }
 };
 
 const handleDecyptBtn = () => {
@@ -346,7 +345,11 @@ const handleDecyptBtn = () => {
     }
   }
 
-  decrypt(text);
+  let crypt = decrypt(text);
+
+  if (text != "" && crypt != "") {
+    addlog(text, crypt);
+  }
 };
 
 const handleInputErase = () => {
@@ -535,7 +538,14 @@ const handleProBtn = () => {
   openModal();
 };
 
-const addlog = () => {};
+const addlog = (textin, textout) => {
+  console.log(textin, textout);
+  logs.unshift([textin, textout]);
+  if (logs.length >= data.maxLogs) {
+    logs.pop();
+  }
+  renderlogs();
+};
 
 const deletelog = (index) => {
   logs.splice(index, 1);
