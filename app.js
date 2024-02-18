@@ -321,7 +321,7 @@ const handleEncyptBtn = () => {
   let crypt = encrypt(text);
 
   if (text != "" && crypt != "") {
-    addlog(text, crypt);
+    addLog(text, crypt);
   }
 };
 
@@ -348,7 +348,7 @@ const handleDecyptBtn = () => {
   let crypt = decrypt(text);
 
   if (text != "" && crypt != "") {
-    addlog(text, crypt);
+    addLog(text, crypt);
   }
 };
 
@@ -374,23 +374,6 @@ const handleSwap = () => {
     if (data.isEncrypt) encrypt(EL.input.in.innerText);
     else decrypt(EL.input.in.innerText);
   }
-};
-
-const inputOutHandler = (e) => {
-  /*
-
-   <div id="box">
-      <!-- this is a comment -->
-    </div>
-
-  if (box.textContent.trim() === '') {
-  console.log('✅ Element is empty');
-} else {
-  console.log('⛔️ Element is NOT empty');
-}
-  */
-  console.log("estoy dentro");
-  console.log(e.target.value);
 };
 
 const handleInputCharNumber = (caret) => {
@@ -538,21 +521,21 @@ const handleProBtn = () => {
   openModal();
 };
 
-const addlog = (textin, textout) => {
+const addLog = (textin, textout) => {
   console.log(textin, textout);
   logs.unshift([textin, textout]);
   if (logs.length >= data.maxLogs) {
     logs.pop();
   }
-  renderlogs();
+  renderLogs();
 };
 
-const deletelog = (index) => {
+const deleteLog = (index) => {
   logs.splice(index, 1);
-  renderlogs();
+  renderLogs();
 };
 
-const renderlogs = () => {
+const renderLogs = () => {
   const LIST = EL.list;
   LIST.innerHTML = "";
 
@@ -571,7 +554,7 @@ const renderlogs = () => {
     bubbleIn.classList.add("bubble-in");
 
     btn.addEventListener("click", () => {
-      deletelog(index);
+      deleteLog(index);
     });
 
     bubbleOut.appendChild(document.createTextNode(log[1]));
@@ -584,10 +567,6 @@ const renderlogs = () => {
     divCon.appendChild(bubbleIn);
     LIST.appendChild(divCon);
   });
-};
-
-const handleLogs = () => {
-  renderlogs();
 };
 
 const setLocalData = () => {
@@ -614,7 +593,7 @@ const setEvents = () => {
   EL.btn.swap.addEventListener("click", handleSwap);
   EL.btn.live.addEventListener("click", handleAutoOutput);
   /////////////////// OUTPUT ///////////////////
-  EL.output.out.addEventListener("change", inputOutHandler);
+  //EL.output.out.addEventListener("change", inputOutHandler);
   EL.btn.copy.addEventListener("click", () => {
     navigator.clipboard.writeText(EL.output.out.innerText);
     handleSnackbar();
@@ -641,7 +620,7 @@ const setup = () => {
   handleInputCharNumber(0);
   setVersion();
   handleAutoOutput(data.isAuto);
-  handleLogs();
+  renderLogs();
   setEvents();
 };
 
