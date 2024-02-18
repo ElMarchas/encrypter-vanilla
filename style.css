@@ -401,6 +401,44 @@ body {
   gap: 1rem;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.list-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.list-out {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.bubble-out {
+  max-width: 80%;
+  width: fit-content;
+  background-color: var(--sky-950);
+  padding: 1rem;
+  border-radius: 0.55rem 1.25rem 1.25rem 0.15rem;
+}
+
+.list-btn {
+}
+.bubble-in {
+  max-width: 80%;
+  width: fit-content;
+  align-self: flex-end;
+  background-color: var(--sky-700);
+  padding: 1rem;
+  border-radius: 1.25rem 0.75rem 0.15rem 1.25rem;
+}
+
 .footer {
   max-width: 100%;
   width: 100vw;

@@ -8,7 +8,15 @@ var data = {
   maxChars: 120,
 };
 
-var log = [];
+var logs = [
+  ["entrada4 entrada4 entrada4 entrada4", "salida24"],
+  [
+    "entrada3 dalskjdas dlakjsjda ldkjasd alskdjas dlkasjd alskdjklasd lkajsd laksjd",
+    "salida23sdasd454as4d4as5d4 asdkjashdkjasd kwjhekljqw dalskjhdkljwq daskjhdlkjqwad askjdhqwae",
+  ],
+  ["entrada2 entrada2", "salida22 salida22 salida22"],
+  ["entrada1", " salida2 salida2"],
+];
 
 const EL = {
   test: document.getElementById("test"),
@@ -47,6 +55,7 @@ const EL = {
     btnNo: document.getElementById("modalCancel"),
   },
   snackbar: document.getElementById("snackbar"),
+  list: document.getElementById("list"),
 };
 
 const encrypt = (text) => {
@@ -526,6 +535,66 @@ const handleProBtn = () => {
   openModal();
 };
 
+const renderlogs = () => {};
+
+const addlog = () => {};
+
+const deletelog = () => {};
+
+const testerino = (test) => {
+  console.log(test);
+};
+
+const handleLogs = () => {
+  /*
+  var ul = document.createElement('ul');
+  var li;
+  
+  root.appendChild(ul); // append the created ul to the root
+
+  arr.forEach(function(item) {
+    if (Array.isArray(item)) { // if it's an array
+      arrToUl(li, item); // call arrToUl with the li as the root
+      return;
+    }
+    
+    li = document.createElement('li'); // create a new list item
+    li.appendChild(document.createTextNode(item)); // append the text to the li
+    ul.appendChild(li); // append the list item to the ul
+  });
+*/
+  const LIST = EL.list;
+
+  logs.forEach((log, index) => {
+    const divCon = document.createElement("div");
+    const divIn = document.createElement("div");
+    const divOut = document.createElement("div");
+    const bubbleIn = document.createElement("div");
+    const bubbleOut = document.createElement("div");
+    const btn = document.createElement("div");
+
+    divCon.classList.add("list-cont");
+    divOut.classList.add("list-out");
+    bubbleOut.classList.add("bubble-out");
+    btn.classList.add("btn", "btn-icon");
+    bubbleIn.classList.add("bubble-in");
+
+    btn.addEventListener("click", () => {
+      testerino(index);
+    });
+
+    bubbleOut.appendChild(document.createTextNode(log[1]));
+    btn.appendChild(document.createTextNode("✖️"));
+    divOut.appendChild(bubbleOut);
+    divOut.appendChild(btn);
+
+    bubbleIn.appendChild(document.createTextNode(log[0]));
+    divCon.appendChild(divOut);
+    divCon.appendChild(bubbleIn);
+    LIST.appendChild(divCon);
+  });
+};
+
 const setLocalData = () => {
   localStorage.setItem("data", JSON.stringify(data));
   return data;
@@ -577,6 +646,7 @@ const setup = () => {
   handleInputCharNumber(0);
   setVersion();
   handleAutoOutput(data.isAuto);
+  handleLogs();
   setEvents();
 };
 
