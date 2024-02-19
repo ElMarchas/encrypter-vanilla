@@ -17,7 +17,9 @@ const lang = {
     toolbtnCopy2: "Copy",
     toolbtnErase: "Clean input text",
     toolbtnLive: "translate automatic",
+    toolbtnDeleteLog: "Delete all logs",
     inputIn: "Enter Text",
+    logTitle: "logs",
     footer: "designed by ",
     modalSubContent:
       "<p>Form log in</p><p>Input email or username</p><p>Input password</p><p>more form things</p>",
@@ -49,7 +51,9 @@ const lang = {
     toolbtnCopy2: "Copiar",
     toolbtnErase: "Borrar texto entrada",
     toolbtnLive: "Traducción automatica",
+    toolbtnDeleteLog: "Borrar todo el historial",
     inputIn: "Ingresa Texto",
+    logTitle: "Historial",
     footer: "hecha por ",
     modalSubContent:
       "<p>Form para iniciar sesion</p><p>Input Correo o nombre de usuario</p><p>Input contraseña</p><p>Demas cosas</p>",

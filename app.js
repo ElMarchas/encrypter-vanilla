@@ -39,6 +39,7 @@ const EL = {
     erase: document.getElementById("btnErase"),
     copy: document.getElementById("btnCopy"),
     copy2: document.getElementById("btnCopy2"),
+    delLog: document.getElementById("btnDeleteLog"),
   },
   mdl: {
     main: document.getElementById("mainModal"),
@@ -522,11 +523,15 @@ const handleProBtn = () => {
 };
 
 const addLog = (textin, textout) => {
-  console.log(textin, textout);
   logs.unshift([textin, textout]);
   if (logs.length >= data.maxLogs) {
     logs.pop();
   }
+  renderLogs();
+};
+
+const deleteAllLogs = () => {
+  logs = [];
   renderLogs();
 };
 
@@ -612,6 +617,7 @@ const setEvents = () => {
 
   /////////////////// MISC ///////////////////
   EL.btn.lang.addEventListener("click", handleLanguage);
+  EL.btn.delLog.addEventListener("click", deleteAllLogs);
 };
 
 const setup = () => {

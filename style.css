@@ -200,6 +200,7 @@ body {
   background: linear-gradient(var(--slate-900), var(--bg-degradado2));
   min-height: 100vh;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -209,6 +210,7 @@ body {
   max-width: 100%;
   width: 100vw;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding-inline: 3rem;
@@ -401,6 +403,21 @@ body {
   gap: 1rem;
 }
 
+.list-header {
+  width: 100%;
+  display: flex;
+  padding-inline: 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.2rem;
+}
+
+.max-height {
+  min-height: 6rem;
+  max-height: 42rem;
+  overflow-y: auto;
+}
+
 .list {
   width: 100%;
   display: flex;
@@ -427,10 +444,9 @@ body {
   background-color: var(--sky-950);
   padding: 1rem;
   border-radius: 0.55rem 1.25rem 1.25rem 0.15rem;
+  word-wrap: break-word;
 }
 
-.list-btn {
-}
 .bubble-in {
   max-width: 80%;
   width: fit-content;
@@ -438,6 +454,7 @@ body {
   background-color: var(--sky-700);
   padding: 1rem;
   border-radius: 1.25rem 0.75rem 0.15rem 1.25rem;
+  word-wrap: break-word;
 }
 
 .footer {
@@ -689,16 +706,6 @@ e {
 
 @media only screen and (max-width: 1020px) {
   .main {
-    /* margin-top: 4rem;
-    width: 100vw;
-    height: 80vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-self: flex-start;
-    column-gap: 0.5rem;
-    padding-inline: 1rem;
-    padding-block: 0.5rem; */
     padding-inline: 0;
   }
 
@@ -724,30 +731,12 @@ e {
   }
 
   .container {
-    /* width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 0.5rem;
-    padding: 0.5rem; */
     flex-wrap: wrap;
     gap: 0;
     padding-inline: 0;
   }
 
   .card {
-    /* width: 100%;
-    min-width: 500px;
-    max-width: 650px;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    align-content: flex-end;
-    gap: 0.25rem;
-    border: var(--slate-600) solid 1px;
-    border-radius: 0.5rem; */
     min-width: 100%;
     border-radius: 0;
     border: 0;
@@ -760,5 +749,27 @@ e {
   .card-output {
     background: center/ 30% no-repeat url("./assets/Muñeco.svg"),
       var(--slate-800);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hcard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .hc1 {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hc1,
+  .hc2,
+  .hc3 {
+    min-width: 8rem;
+  }
+  .hc6,
+  .hc7 {
+    display: none;
   }
 }
