@@ -213,7 +213,7 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding-inline: 3rem;
+  padding-inline: 1rem;
   padding-block: 0.5rem;
   border-bottom: 1px solid var(--slate-500);
 }
@@ -756,6 +756,7 @@ e {
   .hcard {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .hc1 {
