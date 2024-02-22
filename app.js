@@ -263,6 +263,11 @@ const handleInputInput = (e) => {
   handleInputCharNumber(caret);
   let text = e.target.innerText;
 
+  if (e.data == null) {
+    EL.input.in.innerText = text;
+    setCarretPosition(EL.input.in.innerText.length);
+  }
+
   if (text.length < 20) {
     EL.input.in.classList.add("font-l");
     EL.input.in.classList.remove("font-m");
@@ -572,19 +577,23 @@ const renderLogs = () => {
     divCon.appendChild(bubbleIn);
     LIST.appendChild(divCon);
   });
+  setLocalData();
 };
 
 const setLocalData = () => {
   localStorage.setItem("data", JSON.stringify(data));
-  return data;
+  localStorage.setItem("logs", JSON.stringify(logs));
+  return [data, logs];
 };
 
 const getLocalData = () => {
-  let local = JSON.parse(localStorage.getItem("data"));
-  if (local == null) {
-    local = setLocalData();
+  let ldata = JSON.parse(localStorage.getItem("data"));
+  let llogs = JSON.parse(localStorage.getItem("logs"));
+  if (ldata == null || llogs == null) {
+    [ldata, llogs] = setLocalData();
   }
-  data = local;
+  data = ldata;
+  logs = llogs;
 };
 
 const setEvents = () => {
