@@ -245,7 +245,7 @@ const validator = (text, regex) => {
 
 const isNotPro = (text, caret) => {
   const regUpperCase = /[A-Z]/g;
-  const regNotAlpha = /(?!(?:\s|\.|,))\W/g;
+  const regNotAlpha = /(?!(?:\s|\.|,))\W/g;//excluimos " " . , 
   const regProblems = /[<>/&_]+/g; //si el char es ><&_ [return  mensaje] o mejor metemos un remplasazo EZ PZ
   let hasCase = [false, false];
 
